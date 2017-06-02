@@ -18,7 +18,7 @@ public class FileReaderTask extends AsyncTask<Void, Void, Void> {
 
     private Context context;
     private String code;
-    private int fileId;
+    private String fileId;
 
     public interface OnDataReadListener {
         void onDataReadComplete( String code );
@@ -30,7 +30,7 @@ public class FileReaderTask extends AsyncTask<Void, Void, Void> {
     //Interface to communicate back the response to UI
     private OnDataReadListener onDataReadListener;
 
-    public FileReaderTask(Context context, int fileId, OnDataReadListener onDataReadListener) {
+    public FileReaderTask(Context context, String fileId, OnDataReadListener onDataReadListener) {
         this.context = context;
         this.fileId = fileId;
         this.onDataReadListener = onDataReadListener;
@@ -67,7 +67,9 @@ public class FileReaderTask extends AsyncTask<Void, Void, Void> {
         String line;
         try {
 
-            InputStream inputStream = context.getResources().openRawResource(fileId);
+            InputStream inputStream = context.getResources().openRawResource(
+                    context.getResources().getIdentifier(fileId,
+                            "raw", context.getPackageName()));
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             code = "";

@@ -15,12 +15,12 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         codeView = (CodeView) findViewById(R.id.codeView);
-        new FileReaderTask(MainActivity.this, R.raw.main_activity, this).execute();
+        new FileReaderTask(MainActivity.this, "chapter_1", this).execute();
 
     }
 
     @Override
     public void onDataReadComplete(String code) {
-        codeView.setCode(code, "java");
+        codeView.setCode(code, "xml");
     }
 }

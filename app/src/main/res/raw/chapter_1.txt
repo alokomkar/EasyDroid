@@ -1,0 +1,39 @@
+<chapter>
+<head>
+Android Application Development
+</head>
+<subhead>
+Contents
+<rows>
+Android OS
+Activity
+Fragment
+Intent
+Basic UI - display list of items
+Performing tasks in background
+Communication between Fragments and Activities
+Tasks to be completed
+<rows>
+</subhead>
+<module>
+<module-head>
+The Android Operating System
+</module-head>
+<body>
+Android is an operating system based on the Linux kernel. Android is developed in the Android Open Source Project (AOSP). This project is lead by Google.
+
+The Android operating system can be divided into the four areas as depicted in the following graphic. An Android application developer typically works with the two layers on top to create new Android applications.
+
+The levels can be described as:
+
+Applications - Contains the applications, like the Browser, Camera, Gallery, Music and Phone
+
+Application framework - An API which allows high-level interactions with the Android system
+
+Libraries and runtime - The libraries for many common framework functions, like graphic rendering, data storage, web browsing. Also contains the Android runtime, as well as the core Java libraries for running Android applications.
+
+Linux kernel - Communication layer for the underlying hardware.
+</body>
+<image>http://www.myirtech.com/images/service/Custom_android_frame.jpg</image>
+</module>
+</chapter>
