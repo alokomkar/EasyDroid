@@ -58,7 +58,7 @@ public class DashboardFragment extends Fragment {
         @Override
         public void onClick(int position) {
             if( dashboardNavigationListener != null )
-                dashboardNavigationListener.loadTopicFragment();
+                dashboardNavigationListener.loadPresentationFragment();
         }
     };
 

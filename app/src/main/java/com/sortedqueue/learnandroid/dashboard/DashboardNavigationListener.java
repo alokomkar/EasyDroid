@@ -7,4 +7,5 @@ package com.sortedqueue.learnandroid.dashboard;
 public interface DashboardNavigationListener {
     void loadDashboardFragment();
     void loadTopicFragment();
+    void loadPresentationFragment();
 }

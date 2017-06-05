@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.sortedqueue.learnandroid.asynctasks.FileReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardFragment;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
+import com.sortedqueue.learnandroid.topic.PresentationFragment;
 import com.sortedqueue.learnandroid.topic.TopicFragment;
 
 public class MainActivity extends AppCompatActivity implements FileReaderTask.OnDataReadListener, DashboardNavigationListener {
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
     private DashboardFragment dashboardFragment;
     private TopicFragment topicFragment;
     private String currentFragmentTAG = "";
+    private PresentationFragment presentationFragment;
 
     //private CodeView codeView;
     @Override
@@ -54,6 +56,19 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
     }
 
     @Override
+    public void loadPresentationFragment() {
+        currentFragmentTAG = "Presentation";
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        presentationFragment = (PresentationFragment) getSupportFragmentManager().findFragmentByTag(PresentationFragment.class.getSimpleName());
+        if (presentationFragment == null) {
+            presentationFragment = new PresentationFragment();
+        }
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, presentationFragment, PresentationFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    @Override
     public void onDataReadComplete(String code) {
         //codeView.setCode(code, "xml");
     }
@@ -65,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
                 super.onBackPressed();
                 break;
             case "Topics" :
+                loadPresentationFragment();
+                break;
+            case "Presentation" :
                 loadDashboardFragment();
                 break;
         }
