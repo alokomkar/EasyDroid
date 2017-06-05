@@ -7,7 +7,7 @@
     <string name="intent">Intent</string>
     <string name="async_task">AsyncTask</string>
     <string name="topics">Topics</string>
-    <string name="about_app">Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd </string>
+    <string name="about_app">Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd </string>
     <string name="presentation">Presentation</string>
     <string-array name="content_array">
         <item>Android OS</item>

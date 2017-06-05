@@ -1,8 +1,14 @@
 package com.sortedqueue.learnandroid;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.sortedqueue.learnandroid.asynctasks.FileReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardFragment;
@@ -10,22 +16,108 @@ import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.topic.PresentationFragment;
 import com.sortedqueue.learnandroid.topic.TopicFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements FileReaderTask.OnDataReadListener, DashboardNavigationListener {
 
+    @BindView(R.id.reputationProgressBar)
+    ProgressBar reputationProgressBar;
+    @BindView(R.id.reputationTextView)
+    TextView reputationTextView;
+    @BindView(R.id.progressLayout)
+    LinearLayout progressLayout;
+    @BindView(R.id.splashImageView)
+    ImageView splashImageView;
+    @BindView(R.id.splashTextView)
+    TextView splashTextView;
     private FragmentTransaction mFragmentTransaction;
     private DashboardFragment dashboardFragment;
     private TopicFragment topicFragment;
     private String currentFragmentTAG = "";
     private PresentationFragment presentationFragment;
+    private Handler handler;
+    private Runnable runnable;
 
     //private CodeView codeView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadDashboardFragment();
+        ButterKnife.bind(this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                splashImageView.setVisibility(View.GONE);
+                splashTextView.setVisibility(View.GONE);
+                loadDashboardFragment();
+            }
+        }, 2500);
         //codeView = (CodeView) findViewById(R.id.codeView);
         //new FileReaderTask(MainActivity.this, "chapter_1", this).execute();
+
+    }
+
+
+    public void onProgressStatsUpdate(int points) {
+        progressLayout.setVisibility(View.VISIBLE);
+        animateProgress(points);
+    }
+
+    private int progressBarStatus;
+
+    public void animateProgress(final int points) {
+        try {
+            if (reputationProgressBar != null) {
+
+                if (handler == null) {
+                    handler = new Handler();
+                }
+
+                final int progress = points;
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
+
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if (reputationProgressBar != null) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete");
+                                        int level = 1290 / 100;
+                                        if (level > 0) {
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete : Level : " + level);
+                                        }
+                                    }
+                                }
+                            });
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
+                            }
+                        }
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressLayout.setVisibility(View.GONE);
+                            }
+                        }, 1500);
+
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (progressLayout != null) {
+                progressLayout.setVisibility(View.GONE);
+            }
+        }
 
     }
 
@@ -44,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
 
     @Override
     public void loadTopicFragment() {
+        onProgressStatsUpdate(50);
         currentFragmentTAG = "Topics";
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         topicFragment = (TopicFragment) getSupportFragmentManager().findFragmentByTag(TopicFragment.class.getSimpleName());
@@ -57,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
 
     @Override
     public void loadPresentationFragment() {
+        onProgressStatsUpdate(50);
         currentFragmentTAG = "Presentation";
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         presentationFragment = (PresentationFragment) getSupportFragmentManager().findFragmentByTag(PresentationFragment.class.getSimpleName());
@@ -75,14 +169,14 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
 
     @Override
     public void onBackPressed() {
-        switch ( currentFragmentTAG ) {
-            case "Dashboard" :
+        switch (currentFragmentTAG) {
+            case "Dashboard":
                 super.onBackPressed();
                 break;
-            case "Topics" :
+            case "Topics":
                 loadPresentationFragment();
                 break;
-            case "Presentation" :
+            case "Presentation":
                 loadDashboardFragment();
                 break;
         }
