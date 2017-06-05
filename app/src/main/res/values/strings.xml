@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Learn Android</string>
+    <string name="android_basics">Android Basics</string>
+    <string name="android_os">Android OS</string>
+    <string name="activity">Activity</string>
+    <string name="fragment">Fragment</string>
+    <string name="intent">Intent</string>
+    <string name="async_task">AsyncTask</string>
+    <string name="topics">Topics</string>
+    <string-array name="content_array">
+        <item>Android OS</item>
+        <item>Activity</item>
+        <item>Fragment</item>
+        <item>Intent</item>
+    </string-array>
 </resources>
