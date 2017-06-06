@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.sortedqueue.learnandroid.R;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
@@ -32,11 +32,9 @@ public class PresentationFragment extends Fragment {
     android.widget.ProgressBar ProgressBar;
     @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
-    @BindView(R.id.slideContainer)
-    FrameLayout slideContainer;
+    @BindView(R.id.slideViewPager)
+    ViewPager slideViewPager;
     private Unbinder unbinder;
-    private FragmentTransaction mFragmentTransaction;
-    private SlideFragment slideFragment;
 
     private DashboardNavigationListener dashboardNavigationListener;
 
@@ -54,10 +52,21 @@ public class PresentationFragment extends Fragment {
         doneFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dashboardNavigationListener.loadTopicFragment();
+                scrollForward();
             }
+
+
         });
         return fragmentView;
+    }
+
+    private void scrollForward() {
+        if( ProgressBar.getProgress() == ProgressBar.getMax() ) {
+            dashboardNavigationListener.loadTopicFragment();
+        }
+        else {
+            slideViewPager.setCurrentItem(slideViewPager.getCurrentItem() + 1);
+        }
     }
 
     @Override
@@ -75,14 +84,31 @@ public class PresentationFragment extends Fragment {
     }
 
     private void loadSlideFragment() {
-        mFragmentTransaction = getChildFragmentManager().beginTransaction();
-        slideFragment = (SlideFragment) getChildFragmentManager().findFragmentByTag(SlideFragment.class.getSimpleName());
-        if (slideFragment == null) {
-            slideFragment = new SlideFragment();
-        }
-        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
-        mFragmentTransaction.replace(R.id.slideContainer, slideFragment, SlideFragment.class.getSimpleName());
-        mFragmentTransaction.commit();
+        slideViewPager.setAdapter(new SlideViewPager(getChildFragmentManager()));
+        slideViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ProgressBar.setProgress(position + 1);
+                toggleFabDrawable(ProgressBar.getProgress());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        ProgressBar.setMax(slideViewPager.getAdapter().getCount());
+        ProgressBar.setProgress(1);
+    }
+
+    private void toggleFabDrawable(final int progress) {
+        int drawable = progress == ProgressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
+        doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
     }
 
     @Override

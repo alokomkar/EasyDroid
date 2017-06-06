@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/bg">
 
     <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -78,14 +78,16 @@
             </FrameLayout>
         </FrameLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_1"
+            android:background="@color/md_grey_400"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/optionsRecyclerView"
-            android:paddingLeft="@dimen/margin_8"
-            android:paddingRight="@dimen/margin_8"
-            tools:listitem="@layout/item_interview_option"
+            tools:listitem="@layout/item_option"
             >
 
         </android.support.v7.widget.RecyclerView>

@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
+    android:id="@+id/slideLayout"
     android:paddingTop="@dimen/margin_8"
     android:layout_height="match_parent">
 
@@ -20,24 +21,16 @@
             app:cardCornerRadius="@dimen/cardview_app_radius"
             app:cardElevation="4dp">
 
-            <android.support.v4.widget.NestedScrollView
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_100"
-                        android:id="@+id/questionTextView"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:padding="@dimen/margin_16"
-                        android:textSize="@dimen/text_dashboard_small"
-                        android:minLines="2"
-                        android:text="@string/about_app"/>
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
+                android:layout_height="@dimen/margin_100"
+                android:id="@+id/questionTextView"
+                android:maxLines="5"
+                android:scrollbars="vertical"
+                android:layout_marginTop="@dimen/margin_8"
+                android:padding="@dimen/margin_16"
+                android:textSize="@dimen/text_dashboard_small"
+                android:text="@string/about_app"/>
         </android.support.v7.widget.CardView>
         <FrameLayout
             android:layout_width="wrap_content"
@@ -69,16 +62,34 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content">
-    <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contentTextView"
+                android:padding="@dimen/margin_16"
+                android:text="@string/about_app"
+                >
+            </TextView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/slideImageView"
+                android:src="@drawable/web_hi_res_512"
+                />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/expandedImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/contentTextView"
-        android:background="@color/white"
-        android:padding="@dimen/margin_16"
-        android:text="@string/about_app"
-        >
-    </TextView>
-    </android.support.v4.widget.NestedScrollView>
+        android:visibility="invisible" />
 
 </LinearLayout>
