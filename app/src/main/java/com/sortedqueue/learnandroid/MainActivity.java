@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
         mFragmentTransaction.replace(R.id.container, dashboardFragment, DashboardFragment.class.getSimpleName());
         mFragmentTransaction.commit();
 
-        loadCodeFragment();
+        //loadCodeFragment();
     }
 
     private void loadCodeFragment() {
