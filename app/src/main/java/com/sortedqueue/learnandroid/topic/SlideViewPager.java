@@ -17,6 +17,9 @@ public class SlideViewPager extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        if( position == 2 ) {
+            return new CodeFragment();
+        }
         return new SlideFragment();
     }
 
