@@ -8,6 +8,12 @@
     android:paddingTop="@dimen/margin_8"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/expandedImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -86,10 +92,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <ImageView
-        android:id="@+id/expandedImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
+
 
 </LinearLayout>

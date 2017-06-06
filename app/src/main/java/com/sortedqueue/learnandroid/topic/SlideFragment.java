@@ -50,7 +50,7 @@ public class SlideFragment extends Fragment {
         slideImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageUtils.zoomImageFromThumb(getContext(), slideLayout, slideImageView, expandedImageView, slideImageView.getDrawable());
+                ImageUtils.zoomImageFromThumb(getContext(), slideLayout, slideImageView, expandedImageView, R.drawable.web_hi_res_512);
             }
         });
         return fragmentView;

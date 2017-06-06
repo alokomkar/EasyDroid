@@ -7,7 +7,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -27,7 +26,7 @@ public class ImageUtils {
     // very frequently.
     private static int mShortAnimationDuration;
 
-    public static void zoomImageFromThumb(Context context, final View layoutContaner, final View thumbView, final ImageView expandedImageView, Drawable imageResId) {
+    public static void zoomImageFromThumb(Context context, final View layoutContaner, final View thumbView, final ImageView expandedImageView, int imageResId) {
 
         // Retrieve and cache the system's default "short" animation time.
         mShortAnimationDuration = context.getResources().getInteger(
@@ -40,7 +39,7 @@ public class ImageUtils {
         }
 
         // Load the high-resolution "zoomed-in" image.
-        expandedImageView.setImageDrawable(imageResId);
+        expandedImageView.setImageResource(imageResId);
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
