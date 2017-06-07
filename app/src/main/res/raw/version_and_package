@@ -2,7 +2,7 @@ The package attribute defines the base package for the Java objects referred to 
 
 Google Play requires that every Android application uses its own unique package name. Therefore it is a good habit to use your reverse domain name here. This will avoid collisions with other Android applications.
 
-android:versionName and android:versionCode specify the version of your application. versionName is what the user sees and can be any string.
+"android:versionName" and "android:versionCode" specify the version of your application. "versionName" is what the user sees and can be any string.
 
-versionCode must be an integer. The Android Market determines whether it should perform an update of the applications for the existing installation based on that versionCode. You typically start with "1" and increase this value by one if you roll-out a new version of your application.
+"versionCode" must be an integer. The Android Market determines whether it should perform an update of the applications for the existing installation based on that versionCode. You typically start with "1" and increase this value by one if you roll-out a new version of your application.
 

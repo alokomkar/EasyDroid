@@ -1,0 +1,12 @@
+The <application> section allows to define metadata for your application and optionally define an explicit application class. It is also a container for declaring other Android components.
+
+The <activity> tag defines an activity. The name attribute points to class, which (if not fully qualified) is relative to the package defined in the`package` attribute.
+
+The intent filter part in the Android manifest file, tells the Android runtime that this activity should be registered as a possible entry point into the application and made available in the launcher of the Android system.
+
+The action defines that it ( android:name="android.intent.action.MAIN" ` ) can be started. The `category android:name="android.intent.category.LAUNCHER" parameter tells the Android system to add the activity to the launcher.
+
+The <@string/app_name> value refers to resource files which contain the actual value of the application name. The usage of a resource file makes it easy to provide different resources (e.g., strings, colors, icons) for different devices and makes it easy to translate applications.
+
+Similar to the <activity> tag, you can use the service, receiver and provider to declare other Android components.
+

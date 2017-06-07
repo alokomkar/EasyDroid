@@ -100,10 +100,14 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
                 }
 
             }
-            if( contentArrayList.size() == 0 || code.trim().length() > 0 ) {
+            if( contentArrayList.size() == 0 ) {
+                if( code.trim().length() > 0 ) {
+                    contentArrayList.add( new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT) );
+                }
+            }
+            else if( code.trim().length() > 0 ) {
                 contentArrayList.add( new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT) );
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
