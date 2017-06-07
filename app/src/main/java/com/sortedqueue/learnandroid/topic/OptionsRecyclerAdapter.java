@@ -4,9 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sortedqueue.learnandroid.R;
 import com.sortedqueue.learnandroid.utils.ItemTouchHelperAdapter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Alok on 05/06/17.
@@ -32,8 +38,17 @@ public class OptionsRecyclerAdapter extends RecyclerView.Adapter<OptionsRecycler
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        @BindView(R.id.optionTextView)
+        TextView optionTextView;
+        @BindView(R.id.reorderImageView)
+        ImageView reorderImageView;
+        @BindView(R.id.optionCardView)
+        RelativeLayout optionCardView;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -62,4 +77,5 @@ public class OptionsRecyclerAdapter extends RecyclerView.Adapter<OptionsRecycler
         //interviewQuestionModel.getOptionModels().remove(position);
         notifyItemRemoved(position);
     }
+
 }

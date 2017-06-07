@@ -30,8 +30,8 @@ public class PresentationFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.ProgressBar)
-    android.widget.ProgressBar ProgressBar;
+    @BindView(R.id.slideProgressBar)
+    android.widget.ProgressBar slideProgressBar;
     @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
     @BindView(R.id.slideViewPager)
@@ -64,7 +64,7 @@ public class PresentationFragment extends Fragment {
     }
 
     private void scrollForward() {
-        if( ProgressBar.getProgress() == ProgressBar.getMax() ) {
+        if( slideProgressBar.getProgress() == slideProgressBar.getMax() ) {
             dashboardNavigationListener.loadTopicFragment();
         }
         else {
@@ -97,8 +97,8 @@ public class PresentationFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                ProgressBar.setProgress(position + 1);
-                toggleFabDrawable(ProgressBar.getProgress());
+                slideProgressBar.setProgress(position + 1);
+                toggleFabDrawable(slideProgressBar.getProgress());
                 changeScrollBehavior(position);
             }
 
@@ -107,8 +107,8 @@ public class PresentationFragment extends Fragment {
 
             }
         });
-        ProgressBar.setMax(slideViewPager.getAdapter().getCount());
-        ProgressBar.setProgress(1);
+        slideProgressBar.setMax(slideViewPager.getAdapter().getCount());
+        slideProgressBar.setProgress(1);
         changeScrollBehavior(0);
     }
 
@@ -123,7 +123,7 @@ public class PresentationFragment extends Fragment {
     }
 
     private void toggleFabDrawable(final int progress) {
-        int drawable = progress == ProgressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
+        int drawable = progress == slideProgressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
     }
 

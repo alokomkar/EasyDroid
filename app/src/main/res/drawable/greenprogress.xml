@@ -8,9 +8,9 @@
             <!--<corners
                 android:radius="2dip" />-->
             <gradient
-                android:startColor="@color/md_blue_600"
-                android:centerColor="@color/md_blue_900"
-                android:endColor="@color/md_blue_600"
+                android:startColor="@color/md_grey_300"
+                android:centerColor="@color/md_grey_500"
+                android:endColor="@color/md_grey_300"
                 android:angle="270"
                 />
         </shape>
@@ -37,10 +37,10 @@
             <shape>
                 <!--<corners android:radius="2dip" />-->
                 <gradient
-                    android:startColor="@color/md_blue_200"
-                    android:centerColor="@color/md_blue_500"
+                    android:startColor="@color/md_green_200"
+                    android:centerColor="@color/md_green_500"
                     android:centerY="0.75"
-                    android:endColor="@color/md_blue_200"
+                    android:endColor="@color/md_green_200"
                     android:angle="270"
                     />
             </shape>

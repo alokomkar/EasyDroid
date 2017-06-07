@@ -1,5 +1,6 @@
 package com.sortedqueue.learnandroid;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import com.sortedqueue.learnandroid.topic.TopicFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements FileReaderTask.OnDataReadListener, DashboardNavigationListener {
 
@@ -147,6 +149,11 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         mFragmentTransaction.replace(R.id.container, codeFragment, CodeFragment.class.getSimpleName());
         mFragmentTransaction.commit();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

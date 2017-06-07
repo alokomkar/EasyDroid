@@ -18,7 +18,7 @@
 
     <ProgressBar
         android:layout_below="@+id/toolbar"
-        android:id="@+id/ProgressBar"
+        android:id="@+id/slideProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -40,13 +40,13 @@
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <View
-        android:layout_below="@+id/ProgressBar"
+        android:layout_below="@+id/slideProgressBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_48"
         android:background="@color/colorPrimary"/>
 
     <com.sortedqueue.learnandroid.view.OneDirectionalScrollableViewPager
-        android:layout_below="@+id/ProgressBar"
+        android:layout_below="@+id/slideProgressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/slideViewPager">
