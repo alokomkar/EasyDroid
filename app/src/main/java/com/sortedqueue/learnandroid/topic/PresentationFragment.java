@@ -9,24 +9,32 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sortedqueue.learnandroid.R;
+import com.sortedqueue.learnandroid.asynctasks.SlideContentReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.learnandroid.view.SwipeDirection;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_CODE;
+import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_IMAGE;
+import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_TEXT;
+
 /**
  * Created by Alok on 05/06/17.
  */
 
-public class PresentationFragment extends Fragment {
+public class PresentationFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -41,6 +49,8 @@ public class PresentationFragment extends Fragment {
 
     private DashboardNavigationListener dashboardNavigationListener;
 
+    private String TAG = PresentationFragment.class.getSimpleName();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,9 +59,12 @@ public class PresentationFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.presentation);
+        toolbar.setTitle(dashboardNavigationListener.getCurrentMainTitle());
 
-        loadSlideFragment();
+        String fileId = dashboardNavigationListener.getCurrentTopic().toLowerCase().replaceAll(" ", "_");
+        new SlideContentReaderTask(getContext(), fileId, this).execute();
+
+
         doneFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,8 +99,8 @@ public class PresentationFragment extends Fragment {
         dashboardNavigationListener = null;
     }
 
-    private void loadSlideFragment() {
-        slideFragmentPagerAdapter = new SlideFragmentPagerAdapter(getChildFragmentManager());
+    private void loadSlideFragment(ArrayList<Fragment> fragments) {
+        slideFragmentPagerAdapter = new SlideFragmentPagerAdapter(getChildFragmentManager(), fragments);
         slideViewPager.setAdapter(slideFragmentPagerAdapter);
         slideViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -131,5 +144,37 @@ public class PresentationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDataReadComplete(ArrayList<SlideContent> contentArrayList) {
+        Log.d(TAG, "Content : " + contentArrayList);
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        for( SlideContent slideContent : contentArrayList ) {
+            switch ( slideContent.getContentType() ) {
+                case CONTENT_TYPE_IMAGE :
+                    SlideFragment slideFragment = new SlideFragment();
+                    slideFragment.setSlideContent( slideContent );
+                    fragments.add(slideFragment);
+                    break;
+                case CONTENT_TYPE_TEXT :
+                    slideFragment = new SlideFragment();
+                    slideFragment.setSlideContent( slideContent );
+                    fragments.add(slideFragment);
+                    break;
+                case CONTENT_TYPE_CODE :
+                    CodeFragment codeFragment = new CodeFragment();
+                    codeFragment.setSlideContent( slideContent );
+                    fragments.add(codeFragment);
+                    break;
+            }
+        }
+        loadSlideFragment(fragments);
+    }
+
+    public void navigateBack() {
+        if( slideViewPager != null ) {
+            slideViewPager.setCurrentItem(slideViewPager.getCurrentItem() - 1);
+        }
     }
 }

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.sortedqueue.learnandroid.asynctasks.FileReaderTask;
+import com.sortedqueue.learnandroid.asynctasks.CodeFileReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardFragment;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.topic.CodeFragment;
@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements FileReaderTask.OnDataReadListener, DashboardNavigationListener {
+public class MainActivity extends AppCompatActivity implements CodeFileReaderTask.OnDataReadListener, DashboardNavigationListener {
 
     @BindView(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
     private PresentationFragment presentationFragment;
     private Handler handler;
     private Runnable runnable;
+    private String currentTopic = "Learn Android";
+    private String currentMainTitle;
 
     //private CodeView codeView;
     @Override
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
         //new FileReaderTask(MainActivity.this, "chapter_1", this).execute();
 
     }
+
 
 
     public void onProgressStatsUpdate(int points) {
@@ -172,8 +175,10 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
     }
 
     @Override
-    public void loadPresentationFragment() {
+    public void loadPresentationFragment(String mainTitle, String topic) {
         onProgressStatsUpdate(50);
+        currentTopic = topic;
+        currentMainTitle = mainTitle;
         currentFragmentTAG = "Presentation";
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         presentationFragment = (PresentationFragment) getSupportFragmentManager().findFragmentByTag(PresentationFragment.class.getSimpleName());
@@ -183,6 +188,23 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, presentationFragment, PresentationFragment.class.getSimpleName());
         mFragmentTransaction.commit();
+    }
+
+    @Override
+    public String getCurrentTopic() {
+        return currentTopic;
+    }
+
+    @Override
+    public String getCurrentMainTitle() {
+        return currentMainTitle;
+    }
+
+    @Override
+    public void onNavigateBack() {
+        if( presentationFragment != null ) {
+            presentationFragment.navigateBack();
+        }
     }
 
     @Override
@@ -197,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements FileReaderTask.On
                 super.onBackPressed();
                 break;
             case "Topics":
-                loadPresentationFragment();
+                loadPresentationFragment(currentMainTitle, currentTopic);
                 break;
             case "Presentation":
                 loadDashboardFragment();

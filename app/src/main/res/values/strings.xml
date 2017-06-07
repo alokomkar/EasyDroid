@@ -9,10 +9,56 @@
     <string name="topics">Topics</string>
     <string name="about_app">Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd Lorem ipsum dolor sit amet adsfasdfas asdfasf a ads as asd asf asd fasd fa fas as as fas fafasfasdfa asd fas fasd </string>
     <string name="presentation">Presentation</string>
-    <string-array name="content_array">
+    <string name="android_manifest">Android Manifest</string>
+    <string name="navigate_back">Back</string>
+    <string-array name="android_os_array">
         <item>Android OS</item>
-        <item>Activity</item>
-        <item>Fragment</item>
-        <item>Intent</item>
+        <item>Android Versions</item>
+        <item>Android Application</item>
+        <item>User Interface</item>
+        <item>Context</item>
+    </string-array>
+    <string-array name="android_manifest_array">
+        <item>Configuration of your Android application</item>
+        <item>Android manifest example</item>
+        <item>Version and package</item>
+        <item>Application and components</item>
+        <item>Minimum and target SDK</item>
+        <item>Permissions</item>
+        <item>Required device configuration</item>
+        <item>Installation location</item>
+    </string-array>
+    <string-array name="activity_array">
+        <item>States of an activity</item>
+        <item>The life cycle methods</item>
+        <item>Termination of activities by Android</item>
+        <item>Activity instance state</item>
+        <item>Avoiding configuration change restarts</item>
+        <item>Fixing the orientation for an activity</item>
+    </string-array>
+    <string-array name="fragment_array">
+        <item>What are single-pane or multi-pane layouts?</item>
+        <item>What are fragments?</item>
+        <item>Fragments and Context access</item>
+        <item>How to support different screensizes with fragments</item>
+        <item>Defining fragments</item>
+        <item>Application communication with fragments</item>
+        <item>Passing parameters to fragments</item>
+        <item>Fragment life-cycle</item>
+    </string-array>
+    <string-array name="intent_array">
+        <item>What are intents?</item>
+        <item>Starting activities or services</item>
+        <item>Sending out explicit or implicit intents</item>
+        <item>Determine valid intent receivers</item>
+        <item>Intents as event triggers</item>
+    </string-array>
+    <string-array name="async_task_array">
+        <item>Overview</item>
+        <item>Defining an AsyncTask</item>
+        <item>Executing the AsyncTask</item>
+        <item>Understanding the AsyncTask</item>
+        <item>Limitations</item>
+        <item>Custom Thread Management</item>
     </string-array>
 </resources>

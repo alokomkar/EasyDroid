@@ -1,6 +1,7 @@
 package com.sortedqueue.learnandroid.dashboard;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sortedqueue.learnandroid.R;
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +38,8 @@ public class DashboardFragment extends Fragment {
     RecyclerView asyncTaskRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.androidManifestRecyclerView)
+    RecyclerView androidManifestRecyclerView;
     Unbinder unbinder;
 
     private DashboardNavigationListener dashboardNavigationListener;
@@ -56,16 +60,39 @@ public class DashboardFragment extends Fragment {
 
     private AdapterClickListener adapterClickListener = new AdapterClickListener() {
         @Override
-        public void onClick(int position) {
-            if( dashboardNavigationListener != null )
-                dashboardNavigationListener.loadPresentationFragment();
+        public void onClick(int position, int itemType, String topic) {
+
+            String mainTitle = "Learn Android";
+            switch ( itemType ) {
+                case LearnDroidConstants.INDEX_ACTIVITY :
+                    mainTitle = "Activity";
+                    break;
+                case LearnDroidConstants.INDEX_ANDROID_OS :
+                    mainTitle = "Android OS";
+                    break;
+                case LearnDroidConstants.INDEX_ASYNC_TASK :
+                    mainTitle = "AsyncTask";
+                    break;
+                case LearnDroidConstants.INDEX_FRAGMENT :
+                    mainTitle = "Fragments";
+                    break;
+                case LearnDroidConstants.INDEX_MANIFEST :
+                    mainTitle = "Manifest";
+                    break;
+                case LearnDroidConstants.INDEX_INTENT :
+                    mainTitle = "Intents";
+                    break;
+            }
+
+            if (dashboardNavigationListener != null)
+                dashboardNavigationListener.loadPresentationFragment(mainTitle, topic);
         }
     };
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }
@@ -79,16 +106,20 @@ public class DashboardFragment extends Fragment {
     private void setupRecyclerViews() {
 
         androidOSRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        androidManifestRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         activityRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         fragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         intentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         asyncTaskRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        androidOSRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), R.color.md_amber_800, adapterClickListener));
-        activityRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), R.color.md_brown_700, adapterClickListener));
-        fragmentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), R.color.md_blue_grey_700, adapterClickListener));
-        intentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), R.color.md_light_green_900, adapterClickListener));
-        asyncTaskRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), R.color.md_cyan_900, adapterClickListener));
+        int typeIndex = 1;
+        Resources resources = getResources();
+        androidOSRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.android_os_array),  R.color.md_amber_800, adapterClickListener));
+        androidManifestRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener));
+        activityRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener));
+        fragmentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener));
+        intentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener));
+        asyncTaskRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener));
 
     }
 

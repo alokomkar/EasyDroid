@@ -1,0 +1,20 @@
+An Android application (app) is a single installable unit which can be started and used independently. An Android application consists of configuration files, Java source and resource files. You can define the following components in your configuration files:
+
+1. Application
+An Android application can have one Application class which is instantiated before any other Android component. It is the last component which is stopped during application shutdown.
+If not explicitly defined, Android creates a default application object for your application.
+
+2. Activity
+An activity is the visual representation of an Android application. An Android application can have several activities.
+Activities use views and fragments to create their user interface and to interact with the user.
+
+3. Service
+A service performs tasks without providing an user interface. They can communicate with other Android components and send notifications to the user. For example, a broadcast receiver can notify the user via the notification framework in Android.
+
+4. Broadcast receiver (short: receiver)
+A receiver can be registered to listen to system messages and intents. A receiver gets notified by the Android system if the specified event occurs.
+For example, you can register a receiver for the event that the Android system finished the boot process. Or you can register for the event that the state of the phone changes, e.g., someone is calling.
+
+5. Content provider (short: provider)
+A provider defines a structured interface to application data. A provider can be used for accessing data within one application, but can also be used to share data with other applications.
+Android contains an SQLite database which is frequently used in conjunction with a content provider. The SQLite database would store the data, which would be accessed via the provider.

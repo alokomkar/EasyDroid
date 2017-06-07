@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
  * Created by Alok on 02/06/17.
  */
 
-public class FileReaderTask extends AsyncTask<Void, Void, Void> {
+public class CodeFileReaderTask extends AsyncTask<Void, Void, Void> {
 
     private Context context;
     private String code;
@@ -30,7 +30,7 @@ public class FileReaderTask extends AsyncTask<Void, Void, Void> {
     //Interface to communicate back the response to UI
     private OnDataReadListener onDataReadListener;
 
-    public FileReaderTask(Context context, String fileId, OnDataReadListener onDataReadListener) {
+    public CodeFileReaderTask(Context context, String fileId, OnDataReadListener onDataReadListener) {
         this.context = context;
         this.fileId = fileId;
         this.onDataReadListener = onDataReadListener;

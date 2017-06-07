@@ -1,0 +1,3 @@
+Instances of the class android.content.Context provide the connection to the Android system and actual device. It gives access to the system and application resources and services. For example, you can check the size of the current device display via it.
+
+Activities and services extend the Context class. Therefore, they can be directly used to access the Context.

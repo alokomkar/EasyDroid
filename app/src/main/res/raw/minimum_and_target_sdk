@@ -1,0 +1,7 @@
+The uses-sdk section in the manifest allows you to specify the minSdkVersion and targetSdkVersion version of your application.
+
+1. minSdkVersion
+Define the minimum version of Android your application works on. This attribute is used as a filter in applications stores Play. A user cannot install your application on a device with a lower API level than specified in this attribute.
+
+2. targetSdkVersion
+Specifies the version on which you tested and developed. If it is not equal to the API version of the Android device, the Android system might apply forward- or backward-compatibility changes. It is good practice to always set this to the latest Android API version to take advantages of changes in the latest Android improvements.

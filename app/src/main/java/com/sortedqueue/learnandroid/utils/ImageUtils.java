@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.sortedqueue.learnandroid.R;
+
 /**
  * Created by Alok on 06/06/17.
  */
@@ -26,7 +29,7 @@ public class ImageUtils {
     // very frequently.
     private static int mShortAnimationDuration;
 
-    public static void zoomImageFromThumb(Context context, final View layoutContaner, final View thumbView, final ImageView expandedImageView, int imageResId) {
+    public static void zoomImageFromThumb(Context context, final View layoutContaner, final View thumbView, final ImageView expandedImageView, String imageResId) {
 
         // Retrieve and cache the system's default "short" animation time.
         mShortAnimationDuration = context.getResources().getInteger(
@@ -39,7 +42,13 @@ public class ImageUtils {
         }
 
         // Load the high-resolution "zoomed-in" image.
-        expandedImageView.setImageResource(imageResId);
+        Glide.with(context)
+                .load(imageResId)
+                .asBitmap()
+                .fitCenter()
+                .error(R.color.md_red_400)
+                .placeholder(android.R.drawable.ic_menu_report_image)
+                .into(expandedImageView);
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.

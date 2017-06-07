@@ -7,5 +7,8 @@ package com.sortedqueue.learnandroid.dashboard;
 public interface DashboardNavigationListener {
     void loadDashboardFragment();
     void loadTopicFragment();
-    void loadPresentationFragment();
+    void loadPresentationFragment(String mainTitle, String topic);
+    String getCurrentTopic();
+    String getCurrentMainTitle();
+    void onNavigateBack();
 }

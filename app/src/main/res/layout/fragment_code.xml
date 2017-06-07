@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_media_rew"
+        android:text="@string/navigate_back"
+        android:textSize="@dimen/text_dashboard_small"
+        android:drawablePadding="@dimen/margin_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/backTextView"
+        android:background="@color/white"/>
+
     <com.pddstudio.highlightjs.HighlightJsView
+        android:background="@color/md_grey_700"
+        android:layout_below="@+id/backTextView"
         android:id="@+id/highlightJsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</RelativeLayout>

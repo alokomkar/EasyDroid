@@ -22,10 +22,14 @@ public class TopicsRecyclerViewAdapter extends RecyclerView.Adapter<TopicsRecycl
     private int color;
     private Context context;
     private AdapterClickListener adapterClickListener;
+    private int typeIndex;
+    private String[] topicsArray;
 
-    public TopicsRecyclerViewAdapter(Context context, int color, AdapterClickListener adapterClickListener) {
+    public TopicsRecyclerViewAdapter(Context context, int typeIndex, String[] topicsArray, int color, AdapterClickListener adapterClickListener) {
         this.color = color;
         this.context = context;
+        this.typeIndex = typeIndex;
+        this.topicsArray = topicsArray;
         this.adapterClickListener = adapterClickListener;
     }
 
@@ -37,13 +41,13 @@ public class TopicsRecyclerViewAdapter extends RecyclerView.Adapter<TopicsRecycl
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.topicTextView.setText(topicsArray[position]);
     }
 
 
     @Override
     public int getItemCount() {
-        return 10;
+        return topicsArray.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -64,7 +68,7 @@ public class TopicsRecyclerViewAdapter extends RecyclerView.Adapter<TopicsRecycl
         public void onClick(View view) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
-                adapterClickListener.onClick(position);
+                adapterClickListener.onClick(position, typeIndex, topicsArray[position]);
             }
         }
     }

@@ -1,0 +1,6 @@
+The components, settings and metadata of an Android application are described in the AndroidManifest.xml file. This file is known as the manifest file or the manifest.
+
+Activities, services and content provider components of the application must be statically declared in this file. Broadcast receiver can also defined here, or registered dynamically at runtime. The manifest is read by the Android system during installation of the application. The Android system evaluates it and determines the capabilities of the application.
+
+The Gradle build system can add or modify the manifest file at build time. For example, the application version is typically supplied by the Gradle build file.
+

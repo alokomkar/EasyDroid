@@ -10,6 +10,9 @@
     <ImageView
         android:id="@+id/expandedImageView"
         android:layout_width="match_parent"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:minHeight="@dimen/margin_200"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
@@ -29,7 +32,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_100"
+                android:layout_height="wrap_content"
                 android:id="@+id/questionTextView"
                 android:maxLines="5"
                 android:scrollbars="vertical"
@@ -83,7 +86,10 @@
                 >
             </TextView>
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:minHeight="@dimen/margin_200"
                 android:layout_height="wrap_content"
                 android:id="@+id/slideImageView"
                 android:src="@drawable/web_hi_res_512"
