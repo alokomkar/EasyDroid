@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.sortedqueue.learnandroid.R;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
+import com.sortedqueue.learnandroid.view.OneDirectionalScrollableViewPager;
+import com.sortedqueue.learnandroid.view.SwipeDirection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +35,9 @@ public class PresentationFragment extends Fragment {
     @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
     @BindView(R.id.slideViewPager)
-    ViewPager slideViewPager;
+    OneDirectionalScrollableViewPager slideViewPager;
     private Unbinder unbinder;
+    private SlideFragmentPagerAdapter slideFragmentPagerAdapter;
 
     private DashboardNavigationListener dashboardNavigationListener;
 
@@ -84,7 +87,8 @@ public class PresentationFragment extends Fragment {
     }
 
     private void loadSlideFragment() {
-        slideViewPager.setAdapter(new SlideViewPager(getChildFragmentManager()));
+        slideFragmentPagerAdapter = new SlideFragmentPagerAdapter(getChildFragmentManager());
+        slideViewPager.setAdapter(slideFragmentPagerAdapter);
         slideViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -95,6 +99,7 @@ public class PresentationFragment extends Fragment {
             public void onPageSelected(int position) {
                 ProgressBar.setProgress(position + 1);
                 toggleFabDrawable(ProgressBar.getProgress());
+                changeScrollBehavior(position);
             }
 
             @Override
@@ -104,6 +109,17 @@ public class PresentationFragment extends Fragment {
         });
         ProgressBar.setMax(slideViewPager.getAdapter().getCount());
         ProgressBar.setProgress(1);
+        changeScrollBehavior(0);
+    }
+
+    private void changeScrollBehavior(int position) {
+        Fragment fragment = slideFragmentPagerAdapter.getItem(position);
+        if( fragment instanceof CodeFragment ) {
+            slideViewPager.setAllowedSwipeDirection(SwipeDirection.none );
+        }
+        else {
+            slideViewPager.setAllowedSwipeDirection(SwipeDirection.all);
+        }
     }
 
     private void toggleFabDrawable(final int progress) {
