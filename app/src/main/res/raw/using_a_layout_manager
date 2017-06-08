@@ -1,0 +1,18 @@
+<text>
+A layout manager is responsible for the layout of itself and its child views.
+The base class for these layout managers is the <b>android.view.ViewGroup</b> class which extends the <b>android.view.View</b> class.
+
+Android supports different default layout managers. Layout managers can be nested to create complex layouts.
+
+The most relevant layout managers in Android are:
+
+<b>1. ConstraintLayout - provided by an extra library</b>
+
+<b>2. LinearLayout</b>
+
+<b>3. FrameLayout</b>
+
+<b>4. RelativeLayout</b>
+
+<b>5. GridLayout</b>
+</text>

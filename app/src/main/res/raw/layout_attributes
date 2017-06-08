@@ -1,0 +1,15 @@
+<text>
+All layout manager can be configured via attributes. Children can also define attributes which may be evaluated by their parent layout.
+
+Children can specify their desired width and height via the following attributes.
+
+<b>android:layout_width</b> - Defines the width of the widget.
+
+<b>android:layout_height</b> - Defines the height of the widget.
+
+Views can define their size. This can be done in units of measurement or via pre-defined layout values. For example, as 100dp.
+
+The <b>match_parent</b> value tells the application to maximize the widget in its parent. The <b>wrap_content</b> value tells the layout to allocate the minimum amount so that the widget is rendered correctly.
+</text>
+<image>http://www.vogella.com/tutorials/Android/img/xlayout_wrap_content.png.pagespeed.ic.cuXZo0oIqQ.webp</image>
+<image>http://www.vogella.com/tutorials/Android/img/xlayout_match_parent.png.pagespeed.ic.ZJoSfw2pan.webp</image>

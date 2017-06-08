@@ -80,6 +80,22 @@
 
             <TextView
                 style="@style/headerTextView"
+                android:text="@string/views_view_groups"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewsRecyclerView">
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/bg" />
+
+            <TextView
+                style="@style/headerTextView"
                 android:text="@string/activity"
                 />
 

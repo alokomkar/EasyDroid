@@ -1,0 +1,9 @@
+<text>
+A <i>view</i> in Android represents a widget, e.g., a button, or a layout manager.
+The Android SDK provides standard views (widgets), e.g., via the <i>Button, TextView, EditText</i> classes.
+Additional libraries provide more complex widgets, <i>for example, RecyclerView.</i>
+
+All views in Android extend the <b>android.view.View</b> class, this class provides a lot of base functionality for subclasses. For example, it provides the base support for touch.
+
+The main packages for views are part of the <b>android.view</b> namespace for all the base classes and <b>android.widget</b> for the default widgets of the Android platform.
+</text>

@@ -61,7 +61,8 @@ public class PresentationFragment extends Fragment implements SlideContentReader
         activity.setSupportActionBar(toolbar);
         toolbar.setTitle(dashboardNavigationListener.getCurrentMainTitle());
 
-        String fileId = dashboardNavigationListener.getCurrentTopic().toLowerCase().replaceAll(" ", "_");
+        String fileId = dashboardNavigationListener.getCurrentTopic().toLowerCase().replaceAll("-", "").replaceAll("  ", " ").replaceAll(" ", "_");
+        Log.d(TAG, "File Id : " + fileId);
         new SlideContentReaderTask(getContext(), fileId, this).execute();
 
 

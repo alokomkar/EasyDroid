@@ -41,6 +41,8 @@ public class DashboardFragment extends Fragment {
     @BindView(R.id.androidManifestRecyclerView)
     RecyclerView androidManifestRecyclerView;
     Unbinder unbinder;
+    @BindView(R.id.viewsRecyclerView)
+    RecyclerView viewsRecyclerView;
 
     private DashboardNavigationListener dashboardNavigationListener;
 
@@ -63,24 +65,27 @@ public class DashboardFragment extends Fragment {
         public void onClick(int position, int itemType, String topic) {
 
             String mainTitle = "Learn Android";
-            switch ( itemType ) {
-                case LearnDroidConstants.INDEX_ACTIVITY :
+            switch (itemType) {
+                case LearnDroidConstants.INDEX_ACTIVITY:
                     mainTitle = "Activity";
                     break;
-                case LearnDroidConstants.INDEX_ANDROID_OS :
+                case LearnDroidConstants.INDEX_ANDROID_OS:
                     mainTitle = "Android OS";
                     break;
-                case LearnDroidConstants.INDEX_ASYNC_TASK :
+                case LearnDroidConstants.INDEX_ASYNC_TASK:
                     mainTitle = "AsyncTask";
                     break;
-                case LearnDroidConstants.INDEX_FRAGMENT :
+                case LearnDroidConstants.INDEX_FRAGMENT:
                     mainTitle = "Fragments";
                     break;
-                case LearnDroidConstants.INDEX_MANIFEST :
+                case LearnDroidConstants.INDEX_MANIFEST:
                     mainTitle = "Manifest";
                     break;
-                case LearnDroidConstants.INDEX_INTENT :
+                case LearnDroidConstants.INDEX_INTENT:
                     mainTitle = "Intents";
+                    break;
+                case LearnDroidConstants.INDEX_VIEW:
+                    mainTitle = "Views, ViewGroups, LayoutManagers";
                     break;
             }
 
@@ -111,11 +116,13 @@ public class DashboardFragment extends Fragment {
         fragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         intentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         asyncTaskRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        viewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         int typeIndex = 1;
         Resources resources = getResources();
-        androidOSRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.android_os_array),  R.color.md_amber_800, adapterClickListener));
+        androidOSRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.android_os_array), R.color.md_amber_800, adapterClickListener));
         androidManifestRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener));
+        viewsRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.views_array), R.color.md_purple_500, adapterClickListener));
         activityRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener));
         fragmentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener));
         intentRecyclerView.setAdapter(new TopicsRecyclerViewAdapter(getContext(), typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener));
