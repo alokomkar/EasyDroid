@@ -1,0 +1,6 @@
+<text>
+RelativeLayout allows positioning the widget relative to each other. This can be used for complex layouts. RelativeLayout is a complex layout manager and should only be used if such a complex layout is required, as it performs a resource intensive calculation to layout its children.
+
+A simple usage for RelativeLayout is if you want to center a single component. Just add one component to the RelativeLayout and set the android:layout_centerInParent attribute to true.
+</text>
+<code>xml_relative_layout</code>

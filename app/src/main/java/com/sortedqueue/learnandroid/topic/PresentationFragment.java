@@ -29,6 +29,7 @@ import butterknife.Unbinder;
 import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_CODE;
 import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_IMAGE;
 import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_TEXT;
+import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_URL;
 
 /**
  * Created by Alok on 05/06/17.
@@ -128,7 +129,7 @@ public class PresentationFragment extends Fragment implements SlideContentReader
 
     private void changeScrollBehavior(int position) {
         Fragment fragment = slideFragmentPagerAdapter.getItem(position);
-        if( fragment instanceof CodeFragment ) {
+        if( fragment instanceof CodeFragment || fragment instanceof WebViewFragment ) {
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.none );
         }
         else {
@@ -167,6 +168,11 @@ public class PresentationFragment extends Fragment implements SlideContentReader
                     CodeFragment codeFragment = new CodeFragment();
                     codeFragment.setSlideContent( slideContent );
                     fragments.add(codeFragment);
+                    break;
+                case CONTENT_TYPE_URL :
+                    WebViewFragment webViewFragment = new WebViewFragment();
+                    webViewFragment.setSlideContent( slideContent );
+                    fragments.add(webViewFragment);
                     break;
             }
         }

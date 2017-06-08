@@ -1,0 +1,14 @@
+<text>
+LinearLayout puts all its child elements into a single column or row depending on the android:orientation attribute. Possible values for this attribute are horizontal and vertical. horizontal is the default value.
+
+If horizontal is used, the child elements are layouted as indicated by the next picture.
+</text>
+<image>http://www.vogella.com/tutorials/Android/img/xlinearlayout20.png.pagespeed.ic.TC95rqAxQN.webp</image>
+<text>
+LinearLayout can be nested to achieve more complex layouts.
+
+LinearLayout supports assigning a weight to individual children via the android:layout_weight layout parameter. This value specifies how much of the extra space in the layout is allocated to the corresponding view. If, for example, you have two widgets and the first one defines a layout_weight of 1 and the second of 2, the first will get 1/3 of the available space and the other one 2/3. You can also set the layout_width to zero to always have a certain ratio.
+
+Vertical would result in a layout as depicted in the next picture.
+</text>
+<image>http://www.vogella.com/tutorials/Android/img/xlinearlayout10.png.pagespeed.ic.PHFPtcr7qc.webp</image>

@@ -93,6 +93,12 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
                     line = line.replace("</code>", "");
                     contentArrayList.add(new SlideContent(line, LearnDroidConstants.CONTENT_TYPE_CODE));
                 }
+                else if( line.startsWith("<url>") ) {
+                    contentText = "";
+                    line = line.replace("<url>", "");
+                    line = line.replace("</url>", "");
+                    contentArrayList.add(new SlideContent(line, LearnDroidConstants.CONTENT_TYPE_URL));
+                }
                 else if( line.startsWith("<text>") ) {
                     line = bufferedReader.readLine();
                     while( true ) {

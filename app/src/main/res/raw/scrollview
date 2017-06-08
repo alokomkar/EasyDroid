@@ -1,0 +1,5 @@
+<text>
+The ScrollView or the HorizontalScrollView class is useful to make views available, even if they do not fit onto the screen. A scroll view can contain one view, e.g., a layout manager containing more views. If the child view is too large, scroll view allows scrolling the content.
+</text>
+<image>http://www.vogella.com/tutorials/Android/img/xlayout_scrollview10.png.pagespeed.ic.eNc50utvfW.webp</image>
+<code>xml_scrollview</code>

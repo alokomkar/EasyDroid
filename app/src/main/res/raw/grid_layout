@@ -1,0 +1,7 @@
+<text>
+GridLayout allows you to organize views into a grid / table. GridLayout separates its drawing area into: rows, columns, and cells.
+
+You can specify how many columns the grid should have. For each view you can specify in which row and column it should be placed and how many columns and rows it should use. If not specified, GridLayout uses defaults, e.g., one column, one row and the view position depends on the order of the declaration.
+</text>
+<code>xml_grid_layout</code>
+<image>http://www.vogella.com/tutorials/Android/img/xgridlayout.png.pagespeed.ic.G__89Eesc5.webp</image>

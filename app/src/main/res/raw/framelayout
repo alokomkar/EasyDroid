@@ -1,0 +1,6 @@
+<text>
+FrameLayout is a layout manager which draws all child elements on top of each other. This allows to create nice visual effects.
+
+The next screenshot shows the Gmail application which uses FrameLayout to display several button on top of another layout.
+</text>
+<image>http://www.vogella.com/tutorials/Android/img/xundobutton02.png.pagespeed.ic.GGGxLiQpuR.webp</image>

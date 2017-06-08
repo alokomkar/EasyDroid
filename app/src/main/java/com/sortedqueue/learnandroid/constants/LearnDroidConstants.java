@@ -17,5 +17,6 @@ public interface LearnDroidConstants {
     int CONTENT_TYPE_IMAGE = 1;
     int CONTENT_TYPE_TEXT = 2;
     int CONTENT_TYPE_CODE = 3;
+    int CONTENT_TYPE_URL = 4;
 
 }

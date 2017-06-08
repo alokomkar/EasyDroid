@@ -2,4 +2,8 @@
 ConstraintLayout allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It's similar to RelativeLayout in that all views are laid out according to relationships between sibling views and the parent layout, but it's more flexible than RelativeLayout and easier to use with Android Studio's Layout Editor.
 
 All the power of ConstraintLayout is available directly from the Layout Editor's visual tools, because the layout API and the Layout Editor were specially built for each other. So you can build your layout with ConstraintLayout entirely by drag-and-dropping instead of editing the XML.
+
+The layout engine uses constraints specified for each widget to determine their positions within the layout. You can specify the constraints either manually or automatically by inference within the Android Studio layout editor.
 </text>
+<url>https://codelabs.developers.google.com/codelabs/constraint-layout/index.html?index=..%2F..%2Findex#0</url>
+
