@@ -1,5 +1,8 @@
 package com.sortedqueue.learnandroid.topic;
 
+import android.text.Html;
+import android.text.Spanned;
+
 /**
  * Created by Alok on 07/06/17.
  */
@@ -36,5 +39,9 @@ public class SlideContent {
                 "content='" + content + '\'' +
                 ", contentType=" + contentType +
                 '}';
+    }
+
+    public Spanned getSpannableContent() {
+        return Html.fromHtml(content);
     }
 }

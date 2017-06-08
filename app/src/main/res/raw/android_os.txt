@@ -1,24 +1,21 @@
+<text>
 Android is an operating system based on the Linux kernel. Android is developed in the Android Open Source Project (AOSP). This project is lead by Google.
 
 The Android operating system can be divided into the four areas as depicted in the following graphic. An Android application developer typically works with the two layers on top to create new Android applications.
-
+</text>
 <image>http://www.vogella.com/tutorials/Android/img/xandroidsoftwarelayer10.png.pagespeed.ic.cqHvO0-Uh9.png</image>
-
+<text>
 The levels can be described as:
 
-Applications - Contains the applications, like the Browser, Camera, Gallery, Music and Phone
+<b>Applications</b> - Contains the applications, like the Browser, Camera, Gallery, Music and Phone
 
-Application framework - An API which allows high-level interactions with the Android system
+<b>Application framework</b> - An API which allows high-level interactions with the Android system
 
-Libraries and runtime - The libraries for many common framework functions, like graphic rendering, data storage, web browsing. Also contains the Android runtime, as well as the core Java libraries for running Android applications.
+<b>Libraries and runtime</b> - The libraries for many common framework functions, like graphic rendering, data storage, web browsing. Also contains the Android runtime, as well as the core Java libraries for running Android applications.
 
-Linux kernel - Communication layer for the underlying hardware.
+<b>Linux kernel</b> - Communication layer for the underlying hardware.
+</text>
 <code>xml_manifest</code>
+<quiz>quiz_android_os</quiz>
 
-<quiz>
-<type></type>
-<question></question>
-<option></option>
-<answer><answer>
-</quiz>
 

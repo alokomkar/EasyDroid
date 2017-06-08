@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
 
     private Context context;
-    private String code;
+    private String contentText;
     private String fileId;
     private ArrayList<SlideContent> contentArrayList;
 
@@ -78,35 +78,41 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
                             "raw", context.getPackageName()));
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            code = "";
+            contentText = "";
             while ((line = bufferedReader.readLine()) != null) {
                 if( line.startsWith("<image>") ) {
-                    contentArrayList.add(new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT));
-                    code = "";
+                    contentText = "";
                     line = line.replace("<image>", "");
                     line = line.replace("</image>", "");
                     contentArrayList.add(new SlideContent(line, LearnDroidConstants.CONTENT_TYPE_IMAGE));
 
                 }
                 else if( line.startsWith("<code>") ) {
-                    contentArrayList.add(new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT));
-                    code = "";
+                    contentText = "";
                     line = line.replace("<code>", "");
                     line = line.replace("</code>", "");
                     contentArrayList.add(new SlideContent(line, LearnDroidConstants.CONTENT_TYPE_CODE));
                 }
-                else {
-                    code += line + "\n";
+                else if( line.startsWith("<text>") ) {
+                    line = bufferedReader.readLine();
+                    while( true ) {
+                        if( !line.startsWith("</text>") )
+                            contentText += line + "<br>";
+                        else break;
+                        line = bufferedReader.readLine();
+                    }
+                    contentArrayList.add(new SlideContent(contentText, LearnDroidConstants.CONTENT_TYPE_TEXT));
+                    contentText = "";
                 }
 
             }
             if( contentArrayList.size() == 0 ) {
-                if( code.trim().length() > 0 ) {
-                    contentArrayList.add( new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT) );
+                if( contentText.trim().length() > 0 ) {
+                    contentArrayList.add( new SlideContent(contentText, LearnDroidConstants.CONTENT_TYPE_TEXT) );
                 }
             }
-            else if( code.trim().length() > 0 ) {
-                contentArrayList.add( new SlideContent(code, LearnDroidConstants.CONTENT_TYPE_TEXT) );
+            else if( contentText.trim().length() > 0 ) {
+                contentArrayList.add( new SlideContent(contentText, LearnDroidConstants.CONTENT_TYPE_TEXT) );
             }
         } catch (IOException e) {
             e.printStackTrace();

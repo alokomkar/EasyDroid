@@ -1,9 +1,10 @@
-The user interface of activities is defined with fragments, views and layout managers. These elements are typically defined via an XML layout file.
+<text>
+The user interface of activities is defined with fragments, views and layout managers. These elements are typically defined via an <b>XML layout</b> file.
 
-Views are user interface widgets, e.g., buttons or text fields. Views have attributes which can be used to configure their appearance and behavior.
+<b>Views</b> are user interface widgets, e.g., buttons or text fields. Views have <b>attributes</b> which can be used to configure their appearance and behavior.
 
-Layout managers (ViewGroup) are responsible for arranging other views.
+<b>Layout managers (ViewGroup)</b> are responsible for arranging other views.
 
-Fragments are components which run in the context of an activity. A fragment encapsulates application logic and layout information. It is therefore easier to reuse them and to support devices of different size. For example, a smaller screen shows only one fragment with the option to navigate to the next screen. On a larger screen it shows two fragments.
-
+<b>Fragments</b> are components which run in the context of an activity. A fragment encapsulates application logic and layout information. It is therefore easier to reuse them and to support devices of different size. For example, a smaller screen shows only one fragment with the option to navigate to the next screen. On a larger screen it shows two fragments.
+</text>
 <image>http://www.vogella.com/tutorials/Android/img/xlayout_match_parent.png.pagespeed.ic.ZJoSfw2pan.webp</image>

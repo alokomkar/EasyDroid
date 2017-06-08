@@ -79,7 +79,7 @@ public class SlideFragment extends Fragment {
                 break;
             case CONTENT_TYPE_TEXT :
                 contentTextView.setVisibility(View.VISIBLE);
-                contentTextView.setText(slideContent.getContent());
+                contentTextView.setText(slideContent.getSpannableContent());
                 break;
         }
         return fragmentView;
