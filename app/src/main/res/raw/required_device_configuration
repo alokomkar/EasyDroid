@@ -1,6 +1,9 @@
+<text>
 The uses-configuration section in the manifest allows you to specify required input methods for your device. For example, the following snippet would require that the device has a hardware keyboard.
 
-<uses-configuration android:reqHardKeyboard="true"/>
-The uses-feature section allows you to specify the required hardware configuration for your device. For example, the following snippet would require that the device has a camera.
+<i><uses-configuration android:reqHardKeyboard="true"/></i>
+The uses-feature section allows you to specify the required hardware configuration for your device.
+<b>For example,</b> the following snippet would require that the device has a camera.
 
-<uses-feature android:name="android.hardware.camera" />
+<i><uses-feature android:name="android.hardware.camera" /></i>
+</text>

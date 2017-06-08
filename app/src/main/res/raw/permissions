@@ -1,6 +1,8 @@
-The Android manifest file must also contain the required permissions for the application. For example, if the application requires network access, it must be specified here.
+<text>
+The Android manifest file must also contain the required permissions for the application.
+<b>For example</b>, if the application requires network access, it must be specified here.
 
-Your application can declare permissions with the <permission> tag and declare that it required a permission with the <uses-permission> tag.
+Your application can declare permissions with the <b><permission></b> tag and declare that it required a permission with the <b><uses-permission></b> tag.
 
 Certain permissions, like network access, are granted automatically on Android 6.0 or higher systems. Other permissions must be confirmed by the users to become active.
-
+</text>

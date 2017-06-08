@@ -1,4 +1,5 @@
-Via the "installLocation" attribute of your application you can specify if your application can be installed on the external storage of the device. Use "auto" or "preferExternal" to permit this.
+<text>
+Via the <b>installLocation</b> attribute of your application you can specify if your application can be installed on the external storage of the device. Use <b>auto</b> or <b>preferExternal</b> to permit this.
 
 In reality this option is rarely used, as an application installed on the external storage is stopped once the device is connected to a computer and mounted as USB storage.
-
+</text>
