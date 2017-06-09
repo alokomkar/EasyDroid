@@ -19,6 +19,7 @@ import com.sortedqueue.learnandroid.asynctasks.SlideContentReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.learnandroid.view.SwipeDirection;
+import com.sortedqueue.learnandroid.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
@@ -104,6 +105,7 @@ public class PresentationFragment extends Fragment implements SlideContentReader
     private void loadSlideFragment(ArrayList<Fragment> fragments) {
         slideFragmentPagerAdapter = new SlideFragmentPagerAdapter(getChildFragmentManager(), fragments);
         slideViewPager.setAdapter(slideFragmentPagerAdapter);
+        slideViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         slideViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

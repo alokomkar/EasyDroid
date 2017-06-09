@@ -82,6 +82,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/contentTextView"
                 android:padding="@dimen/margin_16"
+                android:autoLink="all"
+                android:clickable="true"
+                android:linksClickable="true"
                 android:text="@string/about_app"
                 >
             </TextView>
