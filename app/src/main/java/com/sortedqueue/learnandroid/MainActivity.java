@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.sortedqueue.learnandroid.asynctasks.CodeFileReaderTask;
 import com.sortedqueue.learnandroid.dashboard.DashboardFragment;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
-import com.sortedqueue.learnandroid.topic.CodeFragment;
 import com.sortedqueue.learnandroid.topic.PresentationFragment;
 import com.sortedqueue.learnandroid.topic.TopicFragment;
 
@@ -138,20 +137,6 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         mFragmentTransaction.replace(R.id.container, dashboardFragment, DashboardFragment.class.getSimpleName());
         mFragmentTransaction.commit();
-
-        //loadCodeFragment();
-    }
-
-    private void loadCodeFragment() {
-        currentFragmentTAG = "Dashboard";
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        CodeFragment codeFragment = (CodeFragment) getSupportFragmentManager().findFragmentByTag(CodeFragment.class.getSimpleName());
-        if (codeFragment == null) {
-            codeFragment = new CodeFragment();
-        }
-        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
-        mFragmentTransaction.replace(R.id.container, codeFragment, CodeFragment.class.getSimpleName());
-        mFragmentTransaction.commit();
     }
 
     @Override
@@ -169,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         if (topicFragment == null) {
             topicFragment = new TopicFragment();
         }
-        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         mFragmentTransaction.replace(R.id.container, topicFragment, TopicFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
@@ -185,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         if (presentationFragment == null) {
             presentationFragment = new PresentationFragment();
         }
-        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         mFragmentTransaction.replace(R.id.container, presentationFragment, PresentationFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
