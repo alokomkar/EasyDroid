@@ -3,12 +3,16 @@ package com.sortedqueue.learnandroid.topic;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +50,8 @@ public class SlideFragment extends Fragment {
     ImageView expandedImageView;
     @BindView(R.id.slideLayout)
     LinearLayout slideLayout;
+    @BindView(R.id.audioFAB)
+    FloatingActionButton audioFAB;
 
     private DashboardNavigationListener dashboardNavigationListener;
     private SlideContent slideContent;
@@ -59,8 +65,9 @@ public class SlideFragment extends Fragment {
         questionTextView.setText(dashboardNavigationListener.getCurrentTopic());
         contentTextView.setVisibility(View.GONE);
         slideImageView.setVisibility(View.GONE);
-        switch ( slideContent.getContentType() ) {
-            case CONTENT_TYPE_IMAGE :
+
+        switch (slideContent.getContentType()) {
+            case CONTENT_TYPE_IMAGE:
                 final String imageUrl = slideContent.getContent();
                 Glide.with(getContext())
                         .load(imageUrl)
@@ -76,14 +83,36 @@ public class SlideFragment extends Fragment {
                     }
                 });
                 slideImageView.setVisibility(View.VISIBLE);
+                audioFAB.setVisibility(View.GONE);
                 break;
-            case CONTENT_TYPE_TEXT :
+            case CONTENT_TYPE_TEXT:
                 contentTextView.setVisibility(View.VISIBLE);
                 contentTextView.setText(slideContent.getSpannableContent());
+                audioFAB.setVisibility(View.VISIBLE);
+                audioFAB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Animation animation = new AlphaAnimation(1, 0);
+                        animation.setDuration(800);
+                        animation.setInterpolator(new LinearInterpolator());
+                        animation.setRepeatCount(Animation.INFINITE);
+                        animation.setRepeatMode(Animation.REVERSE);
+                        audioFAB.startAnimation(animation);
+                        dashboardNavigationListener.playNotes(contentTextView.getText().toString());
+                    }
+                });
                 break;
         }
+
         return fragmentView;
     }
+
+    public void stopAudioAnimation() {
+        if( audioFAB != null ) {
+            audioFAB.clearAnimation();
+        }
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -94,7 +123,7 @@ public class SlideFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }

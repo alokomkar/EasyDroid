@@ -1,0 +1,9 @@
+<text>
+An activity can be in different states depending how it is interacting with the user. These states are described by the following :
+
+<b>Running :</b> Activity is visible and interacts with the user.
+<b>Paused :</b> Activity is still visible but partially obscured, instance is running but might be killed by the system.
+<b>Stopped :</b> Activity is not visible, instance is running but might be killed by the system.
+<b>Killed :</b> Activity has been terminated by the system of by a call to its finish() method.
+
+</text>

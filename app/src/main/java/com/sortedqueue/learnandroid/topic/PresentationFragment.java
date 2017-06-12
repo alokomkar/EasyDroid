@@ -135,6 +135,13 @@ public class PresentationFragment extends Fragment implements SlideContentReader
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.none );
         }
         else {
+            if( fragment instanceof SlideFragment ) {
+                SlideFragment slideFragment = (SlideFragment) fragment;
+                if( slideFragment != null ) {
+                    slideFragment.stopAudioAnimation();
+                }
+            }
+
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.all);
         }
     }
@@ -142,6 +149,7 @@ public class PresentationFragment extends Fragment implements SlideContentReader
     private void toggleFabDrawable(final int progress) {
         int drawable = progress == slideProgressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
+        dashboardNavigationListener.stopAudioPlayback();
     }
 
     @Override

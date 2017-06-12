@@ -1,0 +1,12 @@
+//For example, you may initialize the camera as follows:
+
+@Override
+public void onResume() {
+    super.onResume();  // Always call the superclass method first
+
+
+    // Get the Camera instance as the activity achieves full user focus
+    if (mCamera == null) {
+        initializeCamera(); // Local method to handle camera init
+    }
+}

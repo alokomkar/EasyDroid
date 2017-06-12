@@ -11,4 +11,6 @@ public interface DashboardNavigationListener {
     String getCurrentTopic();
     String getCurrentMainTitle();
     void onNavigateBack();
+    void playNotes( String speechText );
+    void stopAudioPlayback();
 }
