@@ -32,10 +32,9 @@
     <string-array name="activity_array">
         <item>States of an activity</item>
         <item>The life cycle methods</item>
-        <item>Termination of activities by Android</item>
-        <item>Activity instance state</item>
-        <item>Avoiding configuration change restarts</item>
-        <item>Fixing the orientation for an activity</item>
+        <item>Activity state and ejection from memory</item>
+        <item>Navigating between activities</item>
+        <item>Saving and Restoring activity state</item>
     </string-array>
     <string-array name="fragment_array">
         <item>What are single-pane or multi-pane layouts?</item>

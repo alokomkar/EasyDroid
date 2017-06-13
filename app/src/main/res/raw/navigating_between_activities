@@ -1,0 +1,53 @@
+<text>
+An app is likely to enter and exit an activity, perhaps many times, during the app’s lifetime.
+<i>For example, the user may tap the device’s Back button, or the activity may need to launch a different activity.</i>
+This section covers topics you need to know to implement successful activity transitions. These topics include starting an activity from another activity, saving activity state, and restoring activity state.
+
+</text>
+<text>
+<b>Starting one activity from another</b>
+An activity often needs to start another activity at some point. This need arises, for instance, when an app needs to move from the current screen to a new one.
+
+Depending on whether your activity wants a result back from the new activity it’s about to start, you start the new activity using either the startActivity() or the startActivityForResult() method. In either case, you pass in an Intent object.
+
+The Intent object specifies either the exact activity you want to start or describes the type of action you want to perform (and the system selects the appropriate activity for you, which can even be from a different application). An Intent object can also carry small amounts of data to be used by the activity that is started.
+</text>
+<text>
+<b>startActivity()</b>
+If the newly started activity does not need to return a result, the current activity can start it by calling the startActivity() method.
+
+When working within your own application, you often need to simply launch a known activity. For example, the following code snippet shows how to launch an activity called SignInActivity.
+
+<i>Intent intent = new Intent(this, SignInActivity.class);
+startActivity(intent);</i>
+
+Your application might also want to perform some action, such as send an email, text message, or status update, using data from your activity. In this case, your application might not have its own activities to perform such actions, so you can instead leverage the activities provided by other applications on the device, which can perform the actions for you. This is where intents are really valuable: You can create an intent that describes an action you want to perform and the system launches the appropriate activity from another application. If there are multiple activities that can handle the intent, then the user can select which one to use. For example, if you want to allow the user to send an email message, you can create the following intent:
+
+<i>Intent intent = new Intent(Intent.ACTION_SEND);
+intent.putExtra(Intent.EXTRA_EMAIL, recipientArray);
+startActivity(intent);</i>
+
+The EXTRA_EMAIL extra added to the intent is a string array of email addresses to which the email should be sent. When an email application responds to this intent, it reads the string array provided in the extra and places them in the "to" field of the email composition form. In this situation, the email application's activity starts and when the user is done, your activity resumes.
+</text>
+<text>
+<b>startActivityForResult()</b>
+Sometimes you want to get a result back from an activity when it ends. For example, you may start an activity that lets the user pick a person in a list of contacts; when it ends, it returns the person that was selected. To do this, you call the startActivityForResult(Intent, int) method, where the integer parameter identifies the call. This identifier is meant to disambiguate between multiple calls to startActivityForResult(Intent, int) from the same activity. It's not global identifier and is not at risk of conflicting with other apps or activities.The result comes back through your onActivityResult(int, int, Intent) method.
+
+When a child activity exits, it can call setResult(int) to return data to its parent. The child activity must always supply a result code, which can be the standard results RESULT_CANCELED, RESULT_OK, or any custom values starting at RESULT_FIRST_USER. In addition, the child activity can optionally return an Intent object containing any additional data it wants. The parent activity uses the onActivityResult(int, int, Intent) method, along with the integer identifier the parent activity originally supplied, to receive the information.
+
+If a child activity fails for any reason, such as crashing, the parent activity receives a result with the code RESULT_CANCELED.
+</text>
+<code>java_start_activity_for_result<code>
+<text>
+<b>Coordinating activities</b>
+When one activity starts another, they both experience lifecycle transitions. The first activity stops operating and enters the Paused or Stopped state, while the other activity is created. In case these activities share data saved to disc or elsewhere, it's important to understand that the first activity is not completely stopped before the second one is created. Rather, the process of starting the second one overlaps with the process of stopping the first one.
+
+The order of lifecycle callbacks is well defined, particularly when the two activities are in the same process (app) and one is starting the other. Here's the order of operations that occur when Activity A starts Acivity B:
+
+Activity A's onPause() method executes.
+Activity B's onCreate(), onStart(), and onResume() methods execute in sequence. (Activity B now has user focus.)
+Then, if Activity A is no longer visible on screen, its onStop() method executes.
+This predictable sequence of lifecycle callbacks allows you to manage the transition of information from one activity to another.
+
+
+</text>

@@ -1,0 +1,20 @@
+<text>
+When your activity is destroyed because the user presses Back or the activity finishes itself, the system's concept of that Activity instance is gone forever because the behavior indicates the activity is no longer needed. However, if the system destroys the activity due to system constraints (rather than normal app behavior), then although the actual Activity instance is gone, the system remembers that it existed such that if the user navigates back to it, the system creates a new instance of the activity using a set of saved data that describes the state of the activity when it was destroyed. The saved data that the system uses to restore the previous state is called the instance state and is a collection of key-value pairs stored in a Bundle object.
+
+</text>
+<text>
+<b>Save your activity state</b>
+As your activity begins to stop, the system calls the onSaveInstanceState() method so your activity can save state information with a collection of key-value pairs. The default implementation of this method saves transient information about the state of the activity's view hierarchy, such as the text in an EditText widget or the scroll position of a ListView widget. Your app should implement the onSaveInstanceState() callback after the onPause() method, and before onStop(). Do not implement this callback in onPause().
+
+<i>Caution: You must always call the superclass implementation of onSaveInstanceState() so the default implementation can save the state of the view hierarchy.</i>
+
+To save additional state information for your activity, you must override onSaveInstanceState() and add key-value pairs to the Bundle object that is saved in the event that your activity is destroyed unexpectedly. For example:
+</text>
+<code>java_on_save_instance</code>
+<text>
+<b>Restore your activity state</b>
+When your activity is recreated after it was previously destroyed, you can recover your saved state from the Bundle that the system passes to your activity. Both the onCreate() and onRestoreInstanceState() callback methods receive the same Bundle that contains the instance state information.
+
+Because the onCreate() method is called whether the system is creating a new instance of your activity or recreating a previous one, you must check whether the state Bundle is null before you attempt to read it. If it is null, then the system is creating a new instance of the activity, instead of restoring a previous one that was destroyed.
+</text>
+<code>java_on_restore</code>

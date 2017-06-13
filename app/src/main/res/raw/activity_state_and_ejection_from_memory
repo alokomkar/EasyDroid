@@ -1,0 +1,9 @@
+<text>
+The system never kills an activity directly. Instead, it kills the process in which the activity runs, destroying not only the activity but everything else running in the process, as well.
+
+The system kills processes when it needs to free up RAM; the likelihood of its killing a given process depends on the state of the process at the time. Process state, in turn, depends on the state of the activity running in the process.
+
+A user can also kill a process by using the Application Manager under Settings to kill the corresponding app.
+
+</text>
+<image>https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/activity_process_state.png?alt=media&token=7a1069be-1e83-4bf6-bed5-93a9e65c039f</image>
