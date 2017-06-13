@@ -135,13 +135,19 @@ public class PresentationFragment extends Fragment implements SlideContentReader
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.none );
         }
         else {
-            if( fragment instanceof SlideFragment ) {
-                SlideFragment slideFragment = (SlideFragment) fragment;
+            if( position - 1 != -1 ) {
+                SlideFragment slideFragment = (SlideFragment) slideFragmentPagerAdapter.getItem(position - 1);
                 if( slideFragment != null ) {
+                    slideFragment.stopAudioPlayback();
+                }
+            }
+            if( fragment instanceof SlideFragment ) {
+                SlideFragment slideFragment = (SlideFragment) slideFragmentPagerAdapter.getItem(position);
+                if( slideFragment != null ) {
+                    slideFragment.stopAudioPlayback();
                     slideFragment.stopAudioAnimation();
                 }
             }
-
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.all);
         }
     }

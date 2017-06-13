@@ -75,16 +75,7 @@ public class SlideFragment extends Fragment {
         questionTextView.setText(dashboardNavigationListener.getCurrentTopic());
         contentTextView.setVisibility(View.GONE);
         slideImageView.setVisibility(View.GONE);
-        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    textToSpeech.setLanguage(Locale.US);
-                }
-            }
-        }, null);
-        textToSpeech.setPitch(0.85f);
-        textToSpeech.setSpeechRate(0.9f);
+
 
         switch (slideContent.getContentType()) {
             case CONTENT_TYPE_IMAGE:
@@ -146,7 +137,18 @@ public class SlideFragment extends Fragment {
         }
     }
 
-    public void playNotes(String speechText) {
+    public void playNotes(final String speechText) {
+        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.US);
+                    textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, String.valueOf(speechText.hashCode()));
+                }
+            }
+        }, null);
+        textToSpeech.setPitch(0.85f);
+        textToSpeech.setSpeechRate(0.9f);
         textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override
             public void onStart(String s) {
@@ -167,7 +169,7 @@ public class SlideFragment extends Fragment {
                 stopAudioAnimation();
             }
         });
-        textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, String.valueOf(speechText.hashCode()));
+
     }
 
     @Override
