@@ -136,9 +136,11 @@ public class PresentationFragment extends Fragment implements SlideContentReader
         }
         else {
             if( position - 1 != -1 ) {
-                SlideFragment slideFragment = (SlideFragment) slideFragmentPagerAdapter.getItem(position - 1);
-                if( slideFragment != null ) {
-                    slideFragment.stopAudioPlayback();
+                if( slideFragmentPagerAdapter.getItem(position - 1) instanceof SlideFragment ) {
+                    SlideFragment slideFragment = (SlideFragment) slideFragmentPagerAdapter.getItem(position - 1);
+                    if( slideFragment != null ) {
+                        slideFragment.stopAudioPlayback();
+                    }
                 }
             }
             if( fragment instanceof SlideFragment ) {
