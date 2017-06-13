@@ -1,5 +1,7 @@
 package com.sortedqueue.learnandroid.dashboard;
 
+import android.speech.tts.UtteranceProgressListener;
+
 /**
  * Created by Alok on 05/06/17.
  */
@@ -11,6 +13,4 @@ public interface DashboardNavigationListener {
     String getCurrentTopic();
     String getCurrentMainTitle();
     void onNavigateBack();
-    void playNotes( String speechText );
-    void stopAudioPlayback();
 }

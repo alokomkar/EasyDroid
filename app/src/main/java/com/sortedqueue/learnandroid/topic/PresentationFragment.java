@@ -149,7 +149,6 @@ public class PresentationFragment extends Fragment implements SlideContentReader
     private void toggleFabDrawable(final int progress) {
         int drawable = progress == slideProgressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
-        dashboardNavigationListener.stopAudioPlayback();
     }
 
     @Override

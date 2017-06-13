@@ -3,7 +3,7 @@ package com.sortedqueue.learnandroid;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,8 +17,6 @@ import com.sortedqueue.learnandroid.dashboard.DashboardFragment;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.topic.PresentationFragment;
 import com.sortedqueue.learnandroid.topic.TopicFragment;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     private String currentTopic = "Learn Android";
     private String currentMainTitle;
 
-    private TextToSpeech textToSpeech;
+
 
     //private CodeView codeView;
     @Override
@@ -54,16 +52,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    textToSpeech.setLanguage(Locale.US);
-                }
-            }
-        }, null);
-        textToSpeech.setPitch(0.8f);
-        textToSpeech.setSpeechRate(0.85f);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -79,17 +68,9 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     protected void onPause() {
-        stopAudioPlayback();
         super.onPause();
     }
 
-    @Override
-    public void stopAudioPlayback() {
-        if( textToSpeech != null ) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-        }
-    }
 
     public void onProgressStatsUpdate(int points) {
         progressLayout.setVisibility(View.VISIBLE);
@@ -219,11 +200,6 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     }
 
     @Override
-    public void playNotes(String speechText) {
-        textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, null);
-    }
-
-    @Override
     public void onDataReadComplete(String code) {
         //codeView.setCode(code, "xml");
     }
@@ -232,15 +208,12 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     public void onBackPressed() {
         switch (currentFragmentTAG) {
             case "Dashboard":
-                stopAudioPlayback();
                 super.onBackPressed();
                 break;
             case "Topics":
-                stopAudioPlayback();
                 loadPresentationFragment(currentMainTitle, currentTopic);
                 break;
             case "Presentation":
-                stopAudioPlayback();
                 loadDashboardFragment();
                 break;
         }

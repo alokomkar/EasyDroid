@@ -2,11 +2,14 @@ package com.sortedqueue.learnandroid.topic;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +18,15 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sortedqueue.learnandroid.R;
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener;
 import com.sortedqueue.learnandroid.utils.ImageUtils;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +58,10 @@ public class SlideFragment extends Fragment {
     LinearLayout slideLayout;
     @BindView(R.id.audioFAB)
     FloatingActionButton audioFAB;
+    @BindView(R.id.audioProgressBar)
+    ProgressBar audioProgressBar;
+    private TextToSpeech textToSpeech;
+    private String TAG = SlideFragment.class.getSimpleName();
 
     private DashboardNavigationListener dashboardNavigationListener;
     private SlideContent slideContent;
@@ -65,6 +75,16 @@ public class SlideFragment extends Fragment {
         questionTextView.setText(dashboardNavigationListener.getCurrentTopic());
         contentTextView.setVisibility(View.GONE);
         slideImageView.setVisibility(View.GONE);
+        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        }, null);
+        textToSpeech.setPitch(0.85f);
+        textToSpeech.setSpeechRate(0.9f);
 
         switch (slideContent.getContentType()) {
             case CONTENT_TYPE_IMAGE:
@@ -92,13 +112,9 @@ public class SlideFragment extends Fragment {
                 audioFAB.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Animation animation = new AlphaAnimation(1, 0);
-                        animation.setDuration(800);
-                        animation.setInterpolator(new LinearInterpolator());
-                        animation.setRepeatCount(Animation.INFINITE);
-                        animation.setRepeatMode(Animation.REVERSE);
-                        audioFAB.startAnimation(animation);
-                        dashboardNavigationListener.playNotes(contentTextView.getText().toString());
+                        audioProgressBar.setVisibility(View.VISIBLE);
+                        audioProgressBar.setIndeterminate(true);
+                        playNotes(contentTextView.getText().toString());
                     }
                 });
                 break;
@@ -108,16 +124,62 @@ public class SlideFragment extends Fragment {
     }
 
     public void stopAudioAnimation() {
-        if( audioFAB != null ) {
-            audioFAB.clearAnimation();
+        if (audioFAB != null) {
+            if( getActivity() == null ) {
+                return;
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    audioFAB.clearAnimation();
+                    audioProgressBar.setVisibility(View.GONE);
+                }
+            });
         }
     }
 
+    public void stopAudioPlayback() {
+        if( textToSpeech != null ) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            stopAudioAnimation();
+        }
+    }
+
+    public void playNotes(String speechText) {
+        textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onStart(String s) {
+                Log.d(TAG, "Started audio : " + s);
+                startAnimation();
+
+            }
+
+            @Override
+            public void onDone(String s) {
+                Log.d(TAG, "onDone audio : " + s);
+                stopAudioAnimation();
+            }
+
+            @Override
+            public void onError(String s) {
+                Log.d(TAG, "onError audio : " + s);
+                stopAudioAnimation();
+            }
+        });
+        textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, String.valueOf(speechText.hashCode()));
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        stopAudioPlayback();
+        super.onPause();
     }
 
     @Override
@@ -137,4 +199,25 @@ public class SlideFragment extends Fragment {
     public void setSlideContent(SlideContent slideContent) {
         this.slideContent = slideContent;
     }
+
+
+    private void startAnimation() {
+        if( getActivity() == null ) {
+            return;
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = new AlphaAnimation(1, 0);
+                animation.setDuration(800);
+                animation.setInterpolator(new LinearInterpolator());
+                animation.setRepeatCount(Animation.INFINITE);
+                animation.setRepeatMode(Animation.REVERSE);
+                audioFAB.startAnimation(animation);
+                audioProgressBar.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
 }

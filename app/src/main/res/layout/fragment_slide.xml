@@ -101,15 +101,27 @@
                 android:id="@+id/slideImageView"
                 android:src="@drawable/web_hi_res_512"
                 />
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/audioFAB"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_16"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                app:backgroundTint="@color/md_blue_grey_600"
-                app:srcCompat="@drawable/ic_speech" />
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_16">
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/audioFAB"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/md_blue_grey_600"
+                    app:srcCompat="@drawable/ic_speech" />
+                <ProgressBar
+                    android:layout_width="@dimen/margin_72"
+                    android:layout_height="@dimen/margin_72"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="true"
+                    android:id="@+id/audioProgressBar"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
