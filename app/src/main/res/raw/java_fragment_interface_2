@@ -1,0 +1,14 @@
+public static class FragmentA extends ListFragment {
+    OnArticleSelectedListener mListener;
+    ...
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnArticleSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+    ...
+}

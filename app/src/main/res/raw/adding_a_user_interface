@@ -1,0 +1,21 @@
+<text>
+A <b>fragment</b> is usually used as part of an activity's user interface and contributes its own layout to the activity.
+
+To provide a layout for a <b>fragment</b>, you must implement the <b>onCreateView()</b> callback method, which the Android system calls when it's time for the <b>fragment</b> to draw its layout. Your implementation of this method must return a View that is the root of your fragment's layout.
+
+Note: If your <b>fragment</b> is a subclass of ListFragment, the default implementation returns a <b>ListView</b> from <b>onCreateView()</b>, so you don't need to implement it.
+
+To return a layout from <b>onCreateView()</b>, you can inflate it from a layout resource defined in XML. To help you do so, <b>onCreateView()</b> provides a LayoutInflater object.
+</text>
+<code>java_create_fragment</code>
+<text>
+The <i>inflate()</i> method takes three arguments:
+
+The <i>resource ID</i> of the layout you want to inflate.
+
+The <i>ViewGroup<i> to be the parent of the inflated layout. Passing the <i>container</i> is important in order for the system to apply layout parameters to the root view of the inflated layout, specified by the parent view in which it's going.
+
+A <i>boolean</i> indicating whether the inflated layout should be attached to the ViewGroup (the second parameter) during inflation.
+
+<b>(In this case, this is false because the system is already inserting the inflated layout into the container—passing true would create a redundant view group in the final layout.)</b>
+</text>

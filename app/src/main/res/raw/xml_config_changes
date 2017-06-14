@@ -1,0 +1,10 @@
+<!-- You can avoid a restart of your application for certain
+configuration changes via the configChanges attribute on your
+activity definition in your AndroidManifest.xml. The following
+setting avoids an activity restart incase of orientation changes
+or position of the physical keyboard (hidden / visible). -->
+
+<activity android:name=".ProgressTestActivity"
+     android:label="@string/app_name"
+     android:configChanges="orientation|keyboardHidden|keyboard">
+</activity>

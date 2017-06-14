@@ -1,0 +1,17 @@
+// For example, here's a subclass of Fragment that loads
+// a layout from the example_fragment.xml file:
+
+public static class ExampleFragment extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.example_fragment, container, false);
+    }
+}
+
+// The container parameter passed to onCreateView() is the parent
+// ViewGroup (from the activity's layout) in which your fragment
+// layout will be inserted. The savedInstanceState parameter is a
+// Bundle that provides data about the previous instance of the fragment,
+// if the fragment is being resumed

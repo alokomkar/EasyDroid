@@ -1,0 +1,15 @@
+// To retrieve fragments from the back stack, you must override
+// onBackPressed() in the main activity class:
+
+@Override
+public void onBackPressed() {
+    if (getFragmentManager().getBackStackEntryCount() > 0) {
+        getFragmentManager().popBackStack();
+    } else {
+        super.onBackPressed();
+    }
+}
+
+// If you don't override onBackPressed() and there is a previous
+// activity on the back stack, pressing the Back button causes the app to
+// return to that activity; if there is no previous activity, pressing Back causes the app to close.

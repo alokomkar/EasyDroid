@@ -1,0 +1,24 @@
+// Before you call commit(), however, you might want to call addToBackStack(),
+// in order to add the transaction to a back stack of fragment transactions.
+// This back stack is managed by the activity and allows the user to return
+// to the previous fragment state, by pressing the Back button.
+
+// For example, here's how you can replace one fragment with another, and preserve the previous state in the back stack:
+
+// Create new fragment and transaction
+Fragment newFragment = new ExampleFragment();
+FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+transaction.replace(R.id.fragment_container, newFragment);
+transaction.addToBackStack(null);
+
+// Commit the transaction
+transaction.commit();
+
+// In this example, newFragment replaces whatever fragment (if any)
+// is currently in the layout container identified by the R.id.fragment_container ID.
+// By calling addToBackStack(), the replace transaction is saved to the back stack
+// so the user can reverse the transaction and bring back the previous
+// fragment by pressing the Back button.

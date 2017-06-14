@@ -35,16 +35,15 @@
         <item>Activity state and ejection from memory</item>
         <item>Navigating between activities</item>
         <item>Saving and Restoring activity state</item>
+        <item>Fixing the orientation for an activity</item>
     </string-array>
     <string-array name="fragment_array">
-        <item>What are single-pane or multi-pane layouts?</item>
-        <item>What are fragments?</item>
-        <item>Fragments and Context access</item>
-        <item>How to support different screensizes with fragments</item>
-        <item>Defining fragments</item>
-        <item>Application communication with fragments</item>
-        <item>Passing parameters to fragments</item>
-        <item>Fragment life-cycle</item>
+        <item>What are fragments</item>
+        <item>Creating a fragment</item>
+        <item>Adding a user interface</item>
+        <item>Adding a fragment to an activity</item>
+        <item>Communicating with the Activity</item>
+        <item>Handling the Fragment Lifecycle</item>
     </string-array>
     <string-array name="intent_array">
         <item>What are intents?</item>

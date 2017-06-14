@@ -1,0 +1,15 @@
+public static class FragmentA extends ListFragment {
+    OnArticleSelectedListener mListener;
+    ...
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Append the clicked item's row ID with the content provider Uri
+        Uri noteUri = ContentUris.withAppendedId(ArticleColumns.CONTENT_URI, id);
+        // Send the event and Uri to the host activity
+        mListener.onArticleSelected(noteUri);
+    }
+    ...
+}
+// The id parameter passed to onListItemClick() is the row ID of the clicked item,
+// which the activity (or other fragment) uses to fetch the article
+// from the application's ContentProvider.

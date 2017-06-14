@@ -1,0 +1,29 @@
+<text>
+Usually, a fragment contributes a portion of UI to the host activity, which is embedded as a part of the activity's overall view hierarchy. There are two ways you can add a fragment to the activity layout:
+
+<b>1. Declare the fragment inside the activity's layout file.</b>
+      In this case, you can specify layout properties for the fragment as if it were a view.
+      The android:name attribute in the <fragment> specifies the Fragment class to instantiate in the layout.
+      When the system creates this activity layout, it instantiates each fragment specified in the layout and calls the onCreateView() method for each one, to retrieve each fragment's layout. The system inserts the View returned by the fragment directly in place of the <fragment> element.
+
+<b>2. Programmatically add the fragment to an existing ViewGroup.</b>
+      At any time while your activity is running, you can add fragments to your activity layout. You simply need to specify a ViewGroup in which to place the fragment.
+      To make fragment transactions in your activity (such as add, remove, or replace a fragment), you must use APIs from FragmentTransaction. You can get an instance of FragmentTransaction from your Activity
+</text>
+<code>xml_fragment_layout</code>
+<code>java_add_fragment</code>
+<text>
+<b>Managing Fragments</b>
+
+To manage the fragments in your activity, you need to use <b>FragmentManager</b>. To get it, call <i>getFragmentManager()</i> from your activity.
+
+Some things that you can do with FragmentManager include:
+
+Get fragments that exist in the activity, with <i>findFragmentById()</i> (for fragments that provide a UI in the activity layout)
+
+or <i>findFragmentByTag()</i> (for fragments that do or don't provide a UI).
+
+Pop fragments off the back stack, with <i>popBackStack()</i> (simulating a Back command by the user).
+
+Register a listener for changes to the back stack, with <i>addOnBackStackChangedListener().</i>
+</text>

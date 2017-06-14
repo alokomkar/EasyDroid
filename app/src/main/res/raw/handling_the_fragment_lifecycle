@@ -1,0 +1,52 @@
+<text>
+Managing the lifecycle of a fragment is a lot like managing the lifecycle of an activity. Like an activity, a fragment can exist in three states:
+
+<b>Resumed</b>
+The fragment is visible in the running activity.
+
+<b>Paused</b>
+Another activity is in the foreground and has focus, but the activity in which this fragment lives is still visible (the foreground activity is partially transparent or doesn't cover the entire screen).
+
+<b>Stopped</b>
+The fragment is not visible. Either the host activity has been stopped or the fragment has been removed from the activity but added to the back stack. A stopped fragment is still alive (all state and member information is retained by the system). However, it is no longer visible to the user and will be killed if the activity is killed.
+
+Also like an activity, you can retain the state of a fragment using a Bundle, in case the activity's process is killed and you need to restore the fragment state when the activity is recreated. You can save the state during the fragment's onSaveInstanceState() callback and restore it during either onCreate(), onCreateView(), or onActivityCreated(). For more information about saving state, see the Activities document.
+
+The most significant difference in lifecycle between an activity and a fragment is how one is stored in its respective back stack. An activity is placed into a back stack of activities that's managed by the system when it's stopped, by default (so that the user can navigate back to it with the Back button, as discussed in Tasks and Back Stack). However, a fragment is placed into a back stack managed by the host activity only when you explicitly request that the instance be saved by calling addToBackStack() during a transaction that removes the fragment.
+
+Otherwise, managing the fragment lifecycle is very similar to managing the activity lifecycle. So, the same practices for managing the activity lifecycle also apply to fragments. What you also need to understand, though, is how the life of the activity affects the life of the fragment.
+
+<i>Caution: If you need a Context object within your Fragment, you can call getActivity(). However, be careful to call getActivity() only when the fragment is attached to an activity. When the fragment is not yet attached, or was detached during the end of its lifecycle, getActivity() will return null.</i>
+
+
+</text>
+<image>https://developer.android.com/images/activity_fragment_lifecycle.png</image>
+<text>
+<b>Coordinating with the activity lifecycle</b>
+The lifecycle of the activity in which the fragment lives directly affects the lifecycle of the fragment, such that each lifecycle callback for the activity results in a similar callback for each fragment. For example, when the activity receives onPause(), each fragment in the activity receives onPause().
+
+Fragments have a few extra lifecycle callbacks, however, that handle unique interaction with the activity in order to perform actions such as build and destroy the fragment's UI. These additional callback methods are:
+
+<b>onAttach()</b>
+Called when the fragment has been associated with the activity (the Activity is passed in here).
+
+<b>onCreateView()</b>
+Called to create the view hierarchy associated with the fragment.
+
+<b>onActivityCreated()</b>
+Called when the activity's onCreate() method has returned.
+
+<b>onDestroyView()</b>
+Called when the view hierarchy associated with the fragment is being removed.
+
+<b>onDetach()</b>
+Called when the fragment is being disassociated from the activity.
+
+The flow of a fragment's lifecycle, as it is affected by its host activity, is illustrated by previous figure. In this figure, you can see how each successive state of the activity determines which callback methods a fragment may receive. For example, when the activity has received its onCreate() callback, a fragment in the activity receives no more than the onActivityCreated() callback.
+
+Once the activity reaches the resumed state, you can freely add and remove fragments to the activity. Thus, only while the activity is in the resumed state can the lifecycle of a fragment change independently.
+
+However, when the activity leaves the resumed state, the fragment again is pushed through its lifecycle by the activity.
+
+
+</text>

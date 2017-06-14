@@ -1,0 +1,15 @@
+<text>
+It is also possible to define that an activity should only be used in a specific screen orientation via the AndroidManifest.xml file.
+</text>
+<code>xml_orientation_change</code>
+<text>
+<b>Avoiding configuration change restarts</b>
+An activity is restarted if a configuration change occurs. A configuration change happens if an event is triggered from the actual the Android device which may be relevant for the application.
+
+An instance of the Configuration class defines the current configuration of the device. Typical configuration is the device orientation, the locale the smallest width, etc.
+
+<i>For example if the user changes the orientation of the device (vertically or horizontally). Android assumes that an activity might want to use different resources for these orientations and restarts the activity.</i>
+
+In case an activity is restarted the programmer must ensure that the activity is recreated in the same state as before the restart. The Android provides several potential means for doing this.
+</text>
+<code>xml_config_changes</code>

@@ -1,0 +1,18 @@
+<text>
+A <b>fragment</b> is an independent Android component which can be used by an activity. A <b>fragment</b> encapsulates functionality so that it is easier to reuse within activities and layouts.
+
+A <b>fragment</b> runs in the context of an activity, but has its own life cycle and typically its own user interface. It is also possible to define <b>fragments</b> without an user interface, i.e., headless <b>fragments</b>.
+
+Android devices exists in a variety of screen sizes and densities. <b>Fragments</b> simplify the reuse of components in different layouts and their logic. You can build single-pane layouts for handsets (phones) and multi-pane layouts for tablets. You can also use <b>fragments</b> also to support different layout for landscape and portrait orientation on a smartphone.
+
+As it is possible to dynamically add and remove <b>fragments</b> from an activity. The usage of <b>fragments</b> allows to design very flexible user interfaces.
+
+The typical example is a list of items in an activity. On a tablet you see the details immediately on the same screen on the right hand side if you click on item. On a smartphone you jump to a new detail screen. This is depicted in the next graphic.
+</text>
+<image>http://www.vogella.com/tutorials/AndroidFragments/img/xfragmentsusage10.png.pagespeed.ic.i6Z07MeN6O.webp</image>
+<text>
+The following discussion will assume that you have two <b>fragment</b> (main and detail), but you can also have more. We will also have one main activity and one detailed activity. On a tablet the main activity contains both <b>fragment</b> in its layout, on a handheld it only contains the main <b>fragment</b>.
+
+The next screenshots demonstrates this usage.
+</text>
+<image>http://www.vogella.com/tutorials/AndroidFragments/img/xfragmentsusage20.png.pagespeed.ic.rD71dU0elG.webp</image>
