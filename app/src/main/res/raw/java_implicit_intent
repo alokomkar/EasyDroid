@@ -1,0 +1,6 @@
+// For example, the following tells the Android system to view a webpage.
+// All installed web browsers should be registered to the corresponding
+// intent data via an intent filter.
+
+Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+startActivity(i);

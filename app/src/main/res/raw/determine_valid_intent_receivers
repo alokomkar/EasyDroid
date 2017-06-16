@@ -1,0 +1,14 @@
+<text>
+Sometimes you want to determine if a component has registered for an intent. For example, you want to check if a certain intent receiver is available and in case a component is available, you enable a functionality in your application.
+
+This check can be done via the PackageManager class.
+</text>
+<code>java_valid_intent_receiver</code>
+<text>
+<b>Intents as event triggers</b>
+Intents can be used to send broadcast messages into the Android system. A broadcast receiver can register to an event and is notified if such an event is sent.
+
+Your application can register to system events,
+
+<i>e.g., a new email has arrived, system boot is complete or a phone call is received and react accordingly.</i>
+</text>

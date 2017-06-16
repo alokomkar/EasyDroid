@@ -46,11 +46,13 @@
         <item>Handling the Fragment Lifecycle</item>
     </string-array>
     <string-array name="intent_array">
-        <item>What are intents?</item>
+        <item>What are intents</item>
         <item>Starting activities or services</item>
         <item>Sending out explicit or implicit intents</item>
         <item>Determine valid intent receivers</item>
-        <item>Intents as event triggers</item>
+        <item>Data transfer between activities</item>
+        <item>Retrieving result data from a sub-activity</item>>
+        <item>Registering for intents via intent filters</item>
     </string-array>
     <string-array name="async_task_array">
         <item>Overview</item>

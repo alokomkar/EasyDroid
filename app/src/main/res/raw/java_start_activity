@@ -1,0 +1,13 @@
+// The following code demonstrates how you can start another activity via an intent.
+
+// Start the activity connect to the
+// specified class
+
+Intent i = new Intent(this, ActivityTwo.class);
+startActivity(i);
+
+// Activities which are started by other Android activities are called sub-activities.
+// This wording makes it easier to describe which activity is meant.
+
+// To start a services via intents, use the startService(Intent) method call.
+

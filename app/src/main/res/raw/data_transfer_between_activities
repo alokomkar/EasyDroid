@@ -1,0 +1,10 @@
+<text>
+An <b>intent</b> contains certain header data, e.g., the desired action, the type, etc. Optionally an <b>intent</b> can also contain additional data based on an instance of the <b>Bundle</b> class which can be retrieved from the <b>intent</b> via the getExtras() method.
+
+You can also add data directly to the <b>Bundle</b> via the overloaded putExtra() methods of the Intent objects. Extras are key/value pairs. The key is always of type String. As value you can use the primitive data types (int, float, …​) plus objects of type String, <b>Bundle, Parcelable and Serializable.</b>
+
+The receiving component can access this information via the getAction() and getData() methods on the Intent object. This Intent object can be retrieved via the getIntent() method.
+
+The component which receives the <b>intent</b> can use the getIntent().getExtras() method call to get the extra data. That is demonstrated in the next code snippet.
+</text>
+<code>java_data_transfer_activity</code>

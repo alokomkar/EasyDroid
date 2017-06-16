@@ -1,0 +1,42 @@
+// The sub-activity uses the finish() method to create a new
+// intent and to put data into it. It also sets a result via the setResult() method call.
+
+// The following example code demonstrates how to trigger an
+// intent with the startActivityForResult() method.
+
+public void onClick(View view) {
+    Intent i = new Intent(this, ActivityTwo.class);
+    i.putExtra("Value1", "This value one for ActivityTwo ");
+    i.putExtra("Value2", "This value two ActivityTwo");
+    // set the request code to any code you like,
+    // you can identify the callback via this code
+    startActivityForResult(i, REQUEST_CODE);
+}
+
+// If you use the startActivityForResult() method, then the started activity is called a sub-activity.
+
+// If the sub-activity is finished, it can send data back to its caller via an Intent. This is done in the finish() method.
+
+@Override
+public void finish() {
+    // Prepare data intent
+    Intent data = new Intent();
+    data.putExtra("returnKey1", "Swinging on a star. ");
+    data.putExtra("returnKey2", "You could be better then you are. ");
+    // Activity finished ok, return the data
+    setResult(RESULT_OK, data);
+    super.finish();
+}
+
+// Once the sub-activity finishes, the onActivityResult() method in the calling activity is called.
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (data.hasExtra("returnKey1")) {
+            Toast.makeText(this, data.getExtras().getString("returnKey1"),
+                Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+

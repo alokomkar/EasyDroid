@@ -1,0 +1,23 @@
+<text>
+Intents are used to signal to the Android system that a certain event has occurred. Intents often describe the action which should be performed and provide data upon which such an action should be done.
+
+<i>For example, your application can start a browser component for a certain URL via an intent. This is demonstrated by the following example.</i>
+</text>
+<code>java_register_intent</code>
+<text>
+But how does the Android system identify the components which can react to a certain intent?
+
+A component can register itself via an intent filter for a specific action and specific data. An intent filter specifies the types of intents to which an activity, service, or broadcast receiver can respond to by declaring the capabilities of a component.
+
+Android components register intent filters either statically in the AndroidManifest.xml or in case of a broadcast receiver also dynamically via code. An intent filter is defined by its category, action and data filters. It can also contain additional meta-data.
+
+If an intent is sent to the Android system, the Android platform runs a receiver determination. It uses the data included in the intent. If several components have registered for the same intent filter, the user can decide which component should be started.
+
+You can register your Android components via intent filters for certain events. If a component does not define one, it can only be called by explicit intents. This chapter gives an example for registering a component for an intent. The key for this registration is that your component registers for the correct action, mime-type and specifies the correct meta-data.
+
+If you send such an intent to your system, the Android system determines all registered Android components for this intent. If several components have registered for this intent, the user can select which one should be used.
+
+
+</text>
+<code>xml_activity_as_browser</code>
+<code>xml_activity_as_share_intent</code>

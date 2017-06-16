@@ -1,0 +1,15 @@
+// The following example code checks if a component has registered for a
+// certain intent. Construct your intent as you are desired to trigger it
+// and pass it to the following method.
+
+public static boolean isIntentAvailable(Context ctx, Intent intent) {
+    final PackageManager mgr = ctx.getPackageManager();
+    List<ResolveInfo> list =
+        mgr.queryIntentActivities(intent,
+            PackageManager.MATCH_DEFAULT_ONLY);
+    return list.size() > 0;
+}
+
+// Based on the result you can adjust your application.
+// For example, you could disable or hide certain menu items.
+

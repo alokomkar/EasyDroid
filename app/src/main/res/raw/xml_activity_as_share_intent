@@ -1,0 +1,19 @@
+<!-- Register an activity for the share intent
+ The following example registers an activity for the ACTION_SEND intent.
+ It declares itself only relevant for the text/plain mime type. -->
+
+<activity
+    android:name=".ActivityTest"
+    android:label="@string/app_name" >
+    <intent-filter>
+      <action android:name="android.intent.action.SEND" />
+
+      <category android:name="android.intent.category.DEFAULT" />
+
+      <data android:mimeType="text/plain" />
+
+    </intent-filter>
+
+</activity>
+
+<!-- If a component does not define an intent filter, it can only be called by explicit intents. -->

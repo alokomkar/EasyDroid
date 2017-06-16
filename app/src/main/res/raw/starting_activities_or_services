@@ -1,0 +1,5 @@
+<text>
+To start an activity, use the method <i>startActivity(intent)</i>. This method is defined on the Context object which Activity extends.
+</text>
+<image>http://www.vogella.com/tutorials/AndroidIntent/img/xstartactivityviaintent10.png.pagespeed.ic.XIxbBb_YEg.webp</image>
+<code>java_start_activity</code>

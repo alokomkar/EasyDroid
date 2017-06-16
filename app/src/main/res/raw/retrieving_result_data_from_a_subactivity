@@ -1,0 +1,10 @@
+<text>
+An <b>activity</b> can be closed via the back button on the phone. In this case the finish() method is performed. If the <b>activity</b> was started with the startActivity(Intent) method call, the caller requires no result or feedback from the <b>activity</b> which now is closed.
+
+If you start the <b>activity</b> with the startActivityForResult() method call, you expect feedback from the sub-<b>activity</b>. Once the sub-<b>activity</b> ends, the onActivityResult() method on the sub-<b>activity</b> is called and you can perform actions based on the result.
+
+In the startActivityForResult() method call you can specify a result code to determine which <b>activity</b> you started. This result code is returned to you. The started <b>activity</b> can also set a result code which the caller can use to determine if the <b>activity</b> was canceled or not.
+</text>
+<image>http://www.vogella.com/tutorials/AndroidIntent/img/xstartactivity10.png.pagespeed.ic.b9FnPNaKYf.webp</image>
+<image>http://www.vogella.com/tutorials/AndroidIntent/img/xstartactivity20.png.pagespeed.ic.MPqk7wd-s2.webp</image>
+<code>java_start_activity_for_result_1</code>

@@ -1,0 +1,16 @@
+<text>
+Android application components can connect to other Android applications. This connection is based on a task description represented by an <b>Intent</b> object.
+
+<b>Intents</b> are asynchronous messages which allow application components to request functionality from other Android components. <b>Intents</b> allow you to interact with components from the same applications as well as with components contributed by other applications. For example, an activity can start an external activity for taking a picture.
+
+Intents are objects of the <i>android.content.Intent</i> type. Your code can send them to the Android system defining the components you are targeting. For example, via the <b>startActivity()</b> method you can define that the <b>intent</b> should be used to start an activity.
+
+An <b>intent</b> can contain data via a <b>Bundle.</b> This data can be used by the receiving component.
+
+In Android the reuse of other application components is a concept known as task. An application can access other Android components to achieve a task.
+
+<i>For example, from a component of your application you can trigger another component in the Android system, which manages photos, even if this component is not part of your application. In this component you select a photo and return to your application to use the selected photo.</i>
+
+Such a flow of events is depicted in the next graphic.
+</text>
+<image>http://www.vogella.com/tutorials/AndroidIntent/img/xandroidtask10.png.pagespeed.ic.0ELNdlmNLY.webp</image>
