@@ -55,12 +55,8 @@
         <item>Registering for intents via intent filters</item>
     </string-array>
     <string-array name="async_task_array">
-        <item>Overview</item>
+        <item>Asynctask Overview</item>
         <item>Defining an AsyncTask</item>
-        <item>Executing the AsyncTask</item>
-        <item>Understanding the AsyncTask</item>
-        <item>Limitations</item>
-        <item>Custom Thread Management</item>
     </string-array>
     <string-array name="views_array">
         <item>View - The widgets in Android</item>

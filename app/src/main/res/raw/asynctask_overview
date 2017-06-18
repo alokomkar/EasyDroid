@@ -1,0 +1,19 @@
+<text>
+AsyncTask enables proper and easy use of the UI thread. This class allows you to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers.
+
+AsyncTask is designed to be a helper class around Thread and Handler and does not constitute a generic threading framework. AsyncTasks should ideally be used for short operations (a few seconds at the most.) If you need to keep threads running for long periods of time, it is highly recommended you use the various APIs provided by the java.util.concurrent package such as Executor, ThreadPoolExecutor and FutureTask.
+</text>
+<text>
+The basic methods used in an android AsyncTask class are defined below :
+
+    <b>doInBackground() :</b> This method contains the code which needs to be executed in background. In this method we can send results multiple times to the UI thread by publishProgress() method. To notify that the background processing has been completed we just need to use the return statements
+    <b>onPreExecute() :</b> This method contains the code which is executed before the background processing starts
+    <b>onPostExecute() :</b> This method is called after doInBackground method completes processing. Result from doInBackground is passed to this method
+    <b>onProgressUpdate() :</b> This method receives progress updates from doInBackground method, which is published via publishProgress method, and this method can use this progress update to update the UI thread
+
+The three generic types used in an android AsyncTask class are given below :
+
+    <b>Params :</b> The type of the parameters sent to the task upon execution
+    <b>Progress :</b> The type of the progress units published during the background computation
+    <b>Result :</b> The type of the result of the background computation
+</text>

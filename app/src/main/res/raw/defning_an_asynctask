@@ -1,0 +1,20 @@
+<text>
+<b>The 4 steps</b>
+
+When an asynchronous task is executed, the task goes through 4 steps:
+
+    <b>1. onPreExecute()</b>, invoked on the UI thread before the task is executed. This step is normally used to setup the task, for instance by showing a progress bar in the user interface.
+
+    <b>2. doInBackground(Params...)</b>, invoked on the background thread immediately after onPreExecute() finishes executing. This step is used to perform background computation that can take a long time. The parameters of the asynchronous task are passed to this step. The result of the computation must be returned by this step and will be passed back to the last step. This step can also use publishProgress(Progress...) to publish one or more units of progress. These values are published on the UI thread, in the onProgressUpdate(Progress...) step.
+
+    <b>3. onProgressUpdate(Progress...)</b>, invoked on the UI thread after a call to publishProgress(Progress...). The timing of the execution is undefined. This method is used to display any form of progress in the user interface while the background computation is still executing. For instance, it can be used to animate a progress bar or show logs in a text field.
+
+    <b>4. onPostExecute(Result)</b>, invoked on the UI thread after the background computation finishes. The result of the background computation is passed to this step as a parameter.
+
+</text>
+<text>
+<b>Cancelling a task</b>
+
+A task can be cancelled at any time by invoking <i>cancel(boolean).</i> Invoking this method will cause subsequent calls to <i>isCancelled()</i> to return true. After invoking this method, <i>onCancelled(Object),</i> instead of <i>onPostExecute(Object)</i> will be invoked after <i>doInBackground(Object[])</i> returns. To ensure that a task is cancelled as quickly as possible, you should always check the return value of <i>isCancelled()</i> periodically from <i>doInBackground(Object[])</i>, if possible (inside a loop for instance.)
+</text>
+<code>java_execute_task</code>
