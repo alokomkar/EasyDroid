@@ -68,7 +68,9 @@ public class TopicsRecyclerViewAdapter extends RecyclerView.Adapter<TopicsRecycl
         public void onClick(View view) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
-                adapterClickListener.onClick(position, typeIndex, topicsArray[position]);
+
+
+                adapterClickListener.onClick(position, typeIndex, topicsArray[position], topicsArray);
             }
         }
     }

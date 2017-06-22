@@ -152,6 +152,9 @@ public class PresentationFragment extends Fragment implements SlideContentReader
             }
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.all);
         }
+        if( position + 1 == slideViewPager.getAdapter().getCount() ) {
+            dashboardNavigationListener.showNavigateToNextTopic();
+        }
     }
 
     private void toggleFabDrawable(final int progress) {

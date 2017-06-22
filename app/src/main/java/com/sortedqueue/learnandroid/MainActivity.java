@@ -3,7 +3,6 @@ package com.sortedqueue.learnandroid;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements CodeFileReaderTask.OnDataReadListener, DashboardNavigationListener {
+public class MainActivity extends AppCompatActivity implements CodeFileReaderTask.OnDataReadListener, DashboardNavigationListener, View.OnClickListener {
 
     @BindView(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
@@ -34,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     ImageView splashImageView;
     @BindView(R.id.splashTextView)
     TextView splashTextView;
+    @BindView(R.id.navigationTextView)
+    TextView navigationTextView;
+    @BindView(R.id.navigateTopicLayout)
+    LinearLayout navigateTopicLayout;
     private FragmentTransaction mFragmentTransaction;
     private DashboardFragment dashboardFragment;
     private TopicFragment topicFragment;
@@ -43,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     private Runnable runnable;
     private String currentTopic = "Learn Android";
     private String currentMainTitle;
-
+    private String[] topicArray;
+    private String nextTopic;
+    private int topicIndex;
 
 
     //private CodeView codeView;
@@ -52,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        navigateTopicLayout.setOnClickListener(this);
+        navigateTopicLayout.setVisibility(View.GONE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -154,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     public void loadTopicFragment() {
-        onProgressStatsUpdate(50);
+        //onProgressStatsUpdate(50);
         currentFragmentTAG = "Topics";
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         topicFragment = (TopicFragment) getSupportFragmentManager().findFragmentByTag(TopicFragment.class.getSimpleName());
@@ -167,16 +173,24 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     }
 
     @Override
-    public void loadPresentationFragment(String mainTitle, String topic) {
+    public void loadPresentationFragment(String mainTitle, String topic, int topicIndex, String[] topicArray) {
         //onProgressStatsUpdate(50);
         currentTopic = topic;
         currentMainTitle = mainTitle;
         currentFragmentTAG = "Presentation";
+        this.topicArray = topicArray;
+        this.nextTopic = null;
+        this.topicIndex = topicIndex;
+        if( topicIndex + 1 < topicArray.length ) {
+            nextTopic = topicArray[topicIndex + 1];
+        }
+
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        presentationFragment = (PresentationFragment) getSupportFragmentManager().findFragmentByTag(PresentationFragment.class.getSimpleName());
+        /*presentationFragment = (PresentationFragment) getSupportFragmentManager().findFragmentByTag(PresentationFragment.class.getSimpleName());
         if (presentationFragment == null) {
             presentationFragment = new PresentationFragment();
-        }
+        }*/
+        presentationFragment = new PresentationFragment();
         mFragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         mFragmentTransaction.replace(R.id.container, presentationFragment, PresentationFragment.class.getSimpleName());
         mFragmentTransaction.commit();
@@ -194,8 +208,25 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     public void onNavigateBack() {
-        if( presentationFragment != null ) {
+        if (presentationFragment != null) {
             presentationFragment.navigateBack();
+        }
+    }
+
+    @Override
+    public void showNavigateToNextTopic() {
+        if( nextTopic != null ) {
+            navigationTextView.setText("Proceed to Next Topic : " + nextTopic);
+            navigateTopicLayout.setVisibility(View.VISIBLE);
+            if (handler == null) {
+                handler = new Handler();
+            }
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    navigateTopicLayout.setVisibility(View.GONE);
+                }
+            }, 3000);
         }
     }
 
@@ -211,11 +242,20 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
                 super.onBackPressed();
                 break;
             case "Topics":
-                loadPresentationFragment(currentMainTitle, currentTopic);
+                loadPresentationFragment(currentMainTitle,  currentTopic, topicIndex, topicArray);
                 break;
             case "Presentation":
                 loadDashboardFragment();
                 break;
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch ( v.getId() ) {
+            case R.id.navigateTopicLayout :
+                loadPresentationFragment(currentMainTitle, nextTopic, topicIndex + 1, topicArray);
+                break;
+         }
     }
 }

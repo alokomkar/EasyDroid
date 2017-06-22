@@ -62,7 +62,7 @@ public class DashboardFragment extends Fragment {
 
     private AdapterClickListener adapterClickListener = new AdapterClickListener() {
         @Override
-        public void onClick(int position, int itemType, String topic) {
+        public void onClick(int position, int itemType, String topic, String[] topicsArray) {
 
             String mainTitle = "Learn Android";
             switch (itemType) {
@@ -90,7 +90,7 @@ public class DashboardFragment extends Fragment {
             }
 
             if (dashboardNavigationListener != null)
-                dashboardNavigationListener.loadPresentationFragment(mainTitle, topic);
+                dashboardNavigationListener.loadPresentationFragment(mainTitle, topic, position, topicsArray);
         }
     };
 

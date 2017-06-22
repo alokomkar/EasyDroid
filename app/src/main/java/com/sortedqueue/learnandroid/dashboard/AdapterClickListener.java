@@ -5,5 +5,5 @@ package com.sortedqueue.learnandroid.dashboard;
  */
 
 public interface AdapterClickListener {
-    void onClick(int position, int itemType, String topic);
+    void onClick(int position, int itemType, String topic, String[] nextTopic);
 }

@@ -70,5 +70,26 @@
             tools:text="You've gained 15xp\n45% Complete : Level 10"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:id="@+id/navigateTopicLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:padding="@dimen/margin_16"
+            android:background="@color/transparent_black"
+            android:id="@+id/navigationTextView"
+            android:gravity="left"
+            tools:text="Proceed to next topic"/>
+    </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>
 
