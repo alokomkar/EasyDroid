@@ -69,4 +69,7 @@
         <item>Grid Layout</item>
         <item>ScrollView</item>
     </string-array>
+
+    <!--https://developer.android.com/guide/components/services.html-->
+
 </resources>

@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     public void onBackPressed() {
+        navigateTopicLayout.setVisibility(View.GONE);
         switch (currentFragmentTAG) {
             case "Dashboard":
                 super.onBackPressed();
