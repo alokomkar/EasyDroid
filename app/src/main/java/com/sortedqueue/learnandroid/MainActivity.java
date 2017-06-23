@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.learnandroid.asynctasks.CodeFileReaderTask;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     @BindView(R.id.navigationTextView)
     TextView navigationTextView;
     @BindView(R.id.navigateTopicLayout)
-    LinearLayout navigateTopicLayout;
+    RelativeLayout navigateTopicLayout;
+    @BindView(R.id.cancelImageView)
+    ImageView cancelImageView;
     private FragmentTransaction mFragmentTransaction;
     private DashboardFragment dashboardFragment;
     private TopicFragment topicFragment;
@@ -57,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        navigateTopicLayout.setOnClickListener(this);
+        navigationTextView.setOnClickListener(this);
+        cancelImageView.setOnClickListener(this);
         navigateTopicLayout.setVisibility(View.GONE);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
         this.topicArray = topicArray;
         this.nextTopic = null;
         this.topicIndex = topicIndex;
-        if( topicIndex + 1 < topicArray.length ) {
+        if (topicIndex + 1 < topicArray.length) {
             nextTopic = topicArray[topicIndex + 1];
         }
 
@@ -215,10 +219,10 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     public void showNavigateToNextTopic() {
-        if( nextTopic != null ) {
+        if (nextTopic != null) {
             navigationTextView.setText("Proceed to Next Topic : " + nextTopic);
             navigateTopicLayout.setVisibility(View.VISIBLE);
-            if (handler == null) {
+            /*if (handler == null) {
                 handler = new Handler();
             }
             handler.postDelayed(new Runnable() {
@@ -226,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
                 public void run() {
                     navigateTopicLayout.setVisibility(View.GONE);
                 }
-            }, 3000);
+            }, 3000);*/
         }
     }
 
@@ -242,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
                 super.onBackPressed();
                 break;
             case "Topics":
-                loadPresentationFragment(currentMainTitle,  currentTopic, topicIndex, topicArray);
+                loadPresentationFragment(currentMainTitle, currentTopic, topicIndex, topicArray);
                 break;
             case "Presentation":
                 loadDashboardFragment();
@@ -252,10 +256,14 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
 
     @Override
     public void onClick(View v) {
-        switch ( v.getId() ) {
-            case R.id.navigateTopicLayout :
+        switch (v.getId()) {
+            case R.id.navigationTextView:
                 loadPresentationFragment(currentMainTitle, nextTopic, topicIndex + 1, topicArray);
+                navigateTopicLayout.setVisibility(View.GONE);
                 break;
-         }
+            case R.id.cancelImageView:
+                navigateTopicLayout.setVisibility(View.GONE);
+                break;
+        }
     }
 }

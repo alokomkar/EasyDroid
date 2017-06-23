@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:elevation="@dimen/margin_24"
         android:animateLayoutChanges="true"
         android:id="@+id/progressLayout">
@@ -70,13 +70,14 @@
             tools:text="You've gained 15xp\n45% Complete : Level 10"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:visibility="gone"
         tools:visibility="visible"
         android:elevation="@dimen/margin_24"
+        android:background="@color/transparent_black"
         android:animateLayoutChanges="true"
         android:id="@+id/navigateTopicLayout">
 
@@ -84,12 +85,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:layout_centerVertical="true"
             android:padding="@dimen/margin_16"
-            android:background="@color/transparent_black"
+            android:layout_toLeftOf="@+id/cancelImageView"
+            android:layout_toStartOf="@+id/cancelImageView"
             android:id="@+id/navigationTextView"
-            android:gravity="left"
             tools:text="Proceed to next topic"/>
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelImageView"
+            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_8"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
 
