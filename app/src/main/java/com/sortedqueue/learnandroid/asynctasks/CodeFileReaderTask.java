@@ -1,8 +1,9 @@
 package com.sortedqueue.learnandroid.asynctasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,16 +25,15 @@ public class CodeFileReaderTask extends AsyncTask<Void, Void, Void> {
         void onDataReadComplete( String code );
     }
 
-    //To display progress Dialog
-    private ProgressDialog progressDialog;
-
     //Interface to communicate back the response to UI
     private OnDataReadListener onDataReadListener;
+    private ProgressBar progressBar;
 
-    public CodeFileReaderTask(Context context, String fileId, OnDataReadListener onDataReadListener) {
+    public CodeFileReaderTask(ProgressBar codeProgressBar, Context context, String fileId, OnDataReadListener onDataReadListener) {
         this.context = context;
         this.fileId = fileId;
         this.onDataReadListener = onDataReadListener;
+        this.progressBar = codeProgressBar;
     }
 
     @Override
@@ -45,18 +45,16 @@ public class CodeFileReaderTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading");
-        progressDialog.show();
+        if( progressBar != null ) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        if( progressDialog != null ) {
-            progressDialog.dismiss();
+        if( progressBar != null ) {
+            progressBar.setVisibility(View.GONE);
         }
         if( onDataReadListener != null ) {
             onDataReadListener.onDataReadComplete(code);

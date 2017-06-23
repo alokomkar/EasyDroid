@@ -235,6 +235,11 @@ public class MainActivity extends AppCompatActivity implements CodeFileReaderTas
     }
 
     @Override
+    public void hideNavigateToLayout() {
+        navigateTopicLayout.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onDataReadComplete(String code) {
         //codeView.setCode(code, "xml");
     }

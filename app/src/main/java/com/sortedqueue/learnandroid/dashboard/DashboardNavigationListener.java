@@ -12,4 +12,5 @@ public interface DashboardNavigationListener {
     String getCurrentMainTitle();
     void onNavigateBack();
     void showNavigateToNextTopic();
+    void hideNavigateToLayout();
 }

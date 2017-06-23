@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pddstudio.highlightjs.HighlightJsView;
@@ -33,6 +35,8 @@ public class CodeFragment extends Fragment implements CodeFileReaderTask.OnDataR
     Unbinder unbinder;
     @BindView(R.id.backTextView)
     TextView backTextView;
+    @BindView(R.id.codeProgressBar)
+    ProgressBar codeProgressBar;
     private SlideContent slideContent;
 
     private DashboardNavigationListener dashboardNavigationListener;
@@ -55,20 +59,50 @@ public class CodeFragment extends Fragment implements CodeFileReaderTask.OnDataR
         //load the source (can be loaded by String, File or URL)
         highlightJsView.setShowLineNumbers(true);
         highlightJsView.setZoomSupportEnabled(true);
+        highlightJsView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if( highlightJsView == null ) {
+                    return;
+                }
+                View view = highlightJsView.getChildAt(highlightJsView.getChildCount() - 1);
+                if( view != null ) {
+                    int diff = (view.getBottom() - (highlightJsView.getHeight() + highlightJsView
+                            .getScrollY()));
+
+                    if (diff == 0) {
+                        presentationSlideListener.showNextLayout();
+                    }
+                    else {
+                        presentationSlideListener.hideNextLayout();
+                    }
+                }
+                else {
+                    presentationSlideListener.showNextLayout();
+                }
+
+            }
+        });
         backTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dashboardNavigationListener.onNavigateBack();
             }
         });
-        new CodeFileReaderTask(getContext(), slideContent.getContent(), this).execute();
+        new CodeFileReaderTask(codeProgressBar, getContext(), slideContent.getContent(), this).execute();
         return fragmentView;
+    }
+
+    private PresentationSlideListener presentationSlideListener;
+
+    public void setPresentationSlideListener(PresentationSlideListener presentationSlideListener) {
+        this.presentationSlideListener = presentationSlideListener;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }
@@ -88,6 +122,7 @@ public class CodeFragment extends Fragment implements CodeFileReaderTask.OnDataR
     @Override
     public void onDataReadComplete(String code) {
         highlightJsView.setSource(code);
+        codeProgressBar.setVisibility(View.GONE);
     }
 
     @Override

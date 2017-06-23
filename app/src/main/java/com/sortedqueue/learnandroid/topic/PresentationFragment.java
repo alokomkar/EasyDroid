@@ -36,7 +36,7 @@ import static com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT
  * Created by Alok on 05/06/17.
  */
 
-public class PresentationFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener {
+public class PresentationFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener, PresentationSlideListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -52,6 +52,7 @@ public class PresentationFragment extends Fragment implements SlideContentReader
     private DashboardNavigationListener dashboardNavigationListener;
 
     private String TAG = PresentationFragment.class.getSimpleName();
+    private int currentPosition;
 
     @Nullable
     @Override
@@ -130,6 +131,7 @@ public class PresentationFragment extends Fragment implements SlideContentReader
     }
 
     private void changeScrollBehavior(int position) {
+        currentPosition = position;
         Fragment fragment = slideFragmentPagerAdapter.getItem(position);
         if( fragment instanceof CodeFragment || fragment instanceof WebViewFragment ) {
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.none );
@@ -152,9 +154,19 @@ public class PresentationFragment extends Fragment implements SlideContentReader
             }
             slideViewPager.setAllowedSwipeDirection(SwipeDirection.all);
         }
-        if( position + 1 == slideViewPager.getAdapter().getCount() ) {
+
+    }
+
+    @Override
+    public void showNextLayout() {
+        if( currentPosition + 1 == slideViewPager.getAdapter().getCount() ) {
             dashboardNavigationListener.showNavigateToNextTopic();
         }
+    }
+
+    @Override
+    public void hideNextLayout() {
+        dashboardNavigationListener.hideNavigateToLayout();
     }
 
     private void toggleFabDrawable(final int progress) {
@@ -176,16 +188,19 @@ public class PresentationFragment extends Fragment implements SlideContentReader
             switch ( slideContent.getContentType() ) {
                 case CONTENT_TYPE_IMAGE :
                     SlideFragment slideFragment = new SlideFragment();
+                    slideFragment.setPresentationSlideListener(this);
                     slideFragment.setSlideContent( slideContent );
                     fragments.add(slideFragment);
                     break;
                 case CONTENT_TYPE_TEXT :
                     slideFragment = new SlideFragment();
+                    slideFragment.setPresentationSlideListener(this);
                     slideFragment.setSlideContent( slideContent );
                     fragments.add(slideFragment);
                     break;
                 case CONTENT_TYPE_CODE :
                     CodeFragment codeFragment = new CodeFragment();
+                    codeFragment.setPresentationSlideListener(this);
                     codeFragment.setSlideContent( slideContent );
                     fragments.add(codeFragment);
                     break;

@@ -7,12 +7,14 @@ import android.speech.tts.UtteranceProgressListener;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -60,11 +62,14 @@ public class SlideFragment extends Fragment {
     FloatingActionButton audioFAB;
     @BindView(R.id.audioProgressBar)
     ProgressBar audioProgressBar;
+    @BindView(R.id.slideScrollView)
+    NestedScrollView slideScrollView;
     private TextToSpeech textToSpeech;
     private String TAG = SlideFragment.class.getSimpleName();
 
     private DashboardNavigationListener dashboardNavigationListener;
     private SlideContent slideContent;
+    private PresentationSlideListener presentationSlideListener;
 
     @Nullable
     @Override
@@ -111,12 +116,36 @@ public class SlideFragment extends Fragment {
                 break;
         }
 
+        slideScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if( slideScrollView == null ) {
+                    return;
+                }
+                View view = slideScrollView.getChildAt(slideScrollView.getChildCount() - 1);
+
+                int diff = (view.getBottom() - (slideScrollView.getHeight() + slideScrollView
+                        .getScrollY()));
+
+                if (diff == 0) {
+                    presentationSlideListener.showNextLayout();
+                }
+                else {
+                    presentationSlideListener.hideNextLayout();
+                }
+            }
+        });
+
         return fragmentView;
+    }
+
+    public void setPresentationSlideListener(PresentationSlideListener presentationSlideListener) {
+        this.presentationSlideListener = presentationSlideListener;
     }
 
     public void stopAudioAnimation() {
         if (audioFAB != null) {
-            if( getActivity() == null ) {
+            if (getActivity() == null) {
                 return;
             }
             getActivity().runOnUiThread(new Runnable() {
@@ -130,7 +159,7 @@ public class SlideFragment extends Fragment {
     }
 
     public void stopAudioPlayback() {
-        if( textToSpeech != null ) {
+        if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
             stopAudioAnimation();
@@ -141,7 +170,7 @@ public class SlideFragment extends Fragment {
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
+                if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.US);
                     textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, String.valueOf(speechText.hashCode()));
                 }
@@ -204,7 +233,7 @@ public class SlideFragment extends Fragment {
 
 
     private void startAnimation() {
-        if( getActivity() == null ) {
+        if (getActivity() == null) {
             return;
         }
         getActivity().runOnUiThread(new Runnable() {

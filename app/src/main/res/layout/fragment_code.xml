@@ -22,4 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ProgressBar
+        android:layout_below="@+id/backTextView"
+        android:id="@+id/codeProgressBar"
+        android:padding="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        />
+
 </RelativeLayout>
