@@ -15,16 +15,16 @@ import android.view.ViewGroup
 
 import com.sortedqueue.learnandroid.R
 import com.sortedqueue.learnandroid.asynctasks.SlideContentReaderTask
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_CODE
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_IMAGE
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_TEXT
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_URL
 import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener
 import com.sortedqueue.learnandroid.view.SwipeDirection
 import com.sortedqueue.learnandroid.view.ZoomOutPageTransformer
 
 import java.util.ArrayList
 
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_CODE
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_IMAGE
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_TEXT
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_URL
 import kotlinx.android.synthetic.main.fragment_presentation.*
 
 /**
@@ -43,21 +43,36 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_presentation, container, false)
 
-        val activity = activity as AppCompatActivity?
-        activity!!.setSupportActionBar(toolbar)
-        toolbar.setTitle(dashboardNavigationListener!!.currentMainTitle)
 
-        val fileId = dashboardNavigationListener!!.currentTopic.toLowerCase().replace("-".toRegex(), "").replace("  ".toRegex(), " ").replace(" ".toRegex(), "_")
-        Log.d(TAG, "File Id : " + fileId)
-        SlideContentReaderTask(context, fileId, this).execute()
-
-
-        doneFAB.setOnClickListener(View.OnClickListener { scrollForward() })
         return fragmentView
     }
 
+    /**
+     * Called immediately after [.onCreateView]
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     * @param view The View returned by [.onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val activity = activity as AppCompatActivity?
+        activity!!.setSupportActionBar(toolbar)
+        toolbar.setTitle(dashboardNavigationListener!!.getCurrentMainTitle())
+
+        val fileId = dashboardNavigationListener!!.getCurrentTopic().toLowerCase().replace("-".toRegex(), "").replace("  ".toRegex(), " ").replace(" ".toRegex(), "_")
+        Log.d(TAG, "File Id : " + fileId)
+        SlideContentReaderTask(context!!, fileId, this).execute()
+
+
+        doneFAB.setOnClickListener(View.OnClickListener { scrollForward() })
+    }
+
     private fun scrollForward() {
-        if (slideProgressBar.getProgress() === slideProgressBar.getMax()) {
+        if (slideProgressBar.getProgress() == slideProgressBar.getMax()) {
             dashboardNavigationListener!!.loadTopicFragment()
         } else {
             slideViewPager.setCurrentItem(slideViewPager.getCurrentItem() + 1)

@@ -109,13 +109,13 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
     override fun loadDashboardFragment() {
         currentFragmentTAG = "Dashboard"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        dashboardFragment = supportFragmentManager.findFragmentByTag(DashboardFragment::class.java!!.getSimpleName()) as DashboardFragment
+        dashboardFragment = supportFragmentManager.findFragmentByTag(DashboardFragment::class.java.getSimpleName()) as DashboardFragment?
         if (dashboardFragment == null) {
             dashboardFragment = DashboardFragment()
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
-        mFragmentTransaction!!.replace(R.id.container, dashboardFragment, DashboardFragment::class.java!!.getSimpleName())
-        mFragmentTransaction!!.commit()
+        mFragmentTransaction!!.replace(R.id.container, dashboardFragment, DashboardFragment::class.java.getSimpleName())
+        mFragmentTransaction!!.commitAllowingStateLoss()
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         //onProgressStatsUpdate(50);
         currentFragmentTAG = "Topics"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        topicFragment = supportFragmentManager.findFragmentByTag(TopicFragment::class.java!!.getSimpleName()) as TopicFragment
+        topicFragment = supportFragmentManager.findFragmentByTag(TopicFragment::class.java!!.getSimpleName()) as TopicFragment?
         if (topicFragment == null) {
             topicFragment = TopicFragment()
         }
@@ -159,11 +159,11 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         mFragmentTransaction!!.commit()
     }
 
-    fun getCurrentTopic(): String {
+    override fun getCurrentTopic(): String {
         return currentTopic!!
     }
 
-    fun getCurrentMainTitle(): String {
+    override fun getCurrentMainTitle(): String {
         return currentMainTitle!!
     }
 

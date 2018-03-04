@@ -21,30 +21,47 @@ class DashboardFragment : Fragment() {
 
     private var dashboardNavigationListener: DashboardNavigationListener? = null
 
-    private val adapterClickListener = AdapterClickListener { position, itemType, topic, topicsArray ->
-        var mainTitle = "Learn Android"
-        when (itemType) {
-            LearnDroidConstants.INDEX_ACTIVITY -> mainTitle = "Activity"
-            LearnDroidConstants.INDEX_ANDROID_OS -> mainTitle = "Android OS"
-            LearnDroidConstants.INDEX_ASYNC_TASK -> mainTitle = "AsyncTask"
-            LearnDroidConstants.INDEX_FRAGMENT -> mainTitle = "Fragments"
-            LearnDroidConstants.INDEX_MANIFEST -> mainTitle = "Manifest"
-            LearnDroidConstants.INDEX_INTENT -> mainTitle = "Intents"
-            LearnDroidConstants.INDEX_VIEW -> mainTitle = "Views, ViewGroups, LayoutManagers"
+    private val adapterClickListener = object : AdapterClickListener {
+        override fun onClick(position: Int, itemType: Int, topic: String, nextTopic: Array<String>) {
+            var mainTitle = "Learn Android"
+            when (itemType) {
+                LearnDroidConstants.INDEX_ACTIVITY -> mainTitle = "Activity"
+                LearnDroidConstants.INDEX_ANDROID_OS -> mainTitle = "Android OS"
+                LearnDroidConstants.INDEX_ASYNC_TASK -> mainTitle = "AsyncTask"
+                LearnDroidConstants.INDEX_FRAGMENT -> mainTitle = "Fragments"
+                LearnDroidConstants.INDEX_MANIFEST -> mainTitle = "Manifest"
+                LearnDroidConstants.INDEX_INTENT -> mainTitle = "Intents"
+                LearnDroidConstants.INDEX_VIEW -> mainTitle = "Views, ViewGroups, LayoutManagers"
+            }
+
+            if (dashboardNavigationListener != null)
+                dashboardNavigationListener!!.loadPresentationFragment(mainTitle, topic, position, nextTopic)
         }
 
-        if (dashboardNavigationListener != null)
-            dashboardNavigationListener!!.loadPresentationFragment(mainTitle, topic, position, topicsArray)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_dashboard, container, false)
+
+        return fragmentView
+    }
+
+    /**
+     * Called immediately after [.onCreateView]
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     * @param view The View returned by [.onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val activity = activity as AppCompatActivity?
         activity!!.setSupportActionBar(toolbar)
         toolbar.setTitle(R.string.app_name)
-
         setupRecyclerViews()
-        return fragmentView
     }
 
     override fun onAttach(context: Context?) {
@@ -71,13 +88,13 @@ class DashboardFragment : Fragment() {
 
         var typeIndex = 1
         val resources = resources
-        androidOSRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.android_os_array), R.color.md_amber_800, adapterClickListener))
-        androidManifestRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener))
-        viewsRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.views_array), R.color.md_purple_500, adapterClickListener))
-        activityRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener))
-        fragmentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener))
-        intentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener))
-        asyncTaskRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context, typeIndex++, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener))
+        androidOSRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_os_array), R.color.md_amber_800, adapterClickListener))
+        androidManifestRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener))
+        viewsRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.views_array), R.color.md_purple_500, adapterClickListener))
+        activityRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener))
+        fragmentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener))
+        intentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener))
+        asyncTaskRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener))
 
     }
 

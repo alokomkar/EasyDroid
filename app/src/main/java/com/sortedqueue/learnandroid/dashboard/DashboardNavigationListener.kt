@@ -11,4 +11,6 @@ interface DashboardNavigationListener {
     fun onNavigateBack()
     fun showNavigateToNextTopic()
     fun hideNavigateToLayout()
+    fun getCurrentTopic(): String
+    fun getCurrentMainTitle(): String
 }

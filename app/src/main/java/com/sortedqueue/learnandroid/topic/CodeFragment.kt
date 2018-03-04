@@ -29,13 +29,27 @@ class CodeFragment : Fragment(), CodeFileReaderTask.OnDataReadListener, Highligh
     private var presentationSlideListener: PresentationSlideListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_code, container, false)
+        return inflater.inflate(R.layout.fragment_code, container, false)
+    }
+
+    /**
+     * Called immediately after [.onCreateView]
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     * @param view The View returned by [.onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //register theme change listener
         highlightJsView.setOnThemeChangedListener(this)
         //change theme and set language to auto detect
         highlightJsView.setTheme(Theme.ANDROID_STUDIO)
         val codeFile = slideContent!!.content
-        if (codeFile.startsWith("xml")) {
+        if (codeFile!!.startsWith("xml")) {
             highlightJsView.setHighlightLanguage(Language.XML)
         } else {
             highlightJsView.setHighlightLanguage(Language.JAVA)
@@ -62,8 +76,7 @@ class CodeFragment : Fragment(), CodeFileReaderTask.OnDataReadListener, Highligh
             }
         })
         backTextView.setOnClickListener(View.OnClickListener { dashboardNavigationListener!!.onNavigateBack() })
-        CodeFileReaderTask(codeProgressBar, context, slideContent!!.content, this).execute()
-        return fragmentView
+        CodeFileReaderTask(codeProgressBar, context!!, slideContent!!.content!!, this).execute()
     }
 
     fun setPresentationSlideListener(presentationSlideListener: PresentationSlideListener) {
@@ -83,7 +96,7 @@ class CodeFragment : Fragment(), CodeFileReaderTask.OnDataReadListener, Highligh
     }
 
 
-    override fun onDataReadComplete(code: String) {
+    override fun onDataReadComplete(code: String?) {
         highlightJsView.setSource(code)
         codeProgressBar.setVisibility(View.GONE)
     }

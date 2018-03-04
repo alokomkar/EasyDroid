@@ -17,7 +17,7 @@ import java.nio.charset.Charset
  */
 @SuppressLint("StaticFieldLeak")
 class CodeFileReaderTask( private val progressBar: ProgressBar?, private val context: Context, private val fileId: String, //Interface to communicate back the response to UI
-                         private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void>() {
+                         private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void?>() {
     private var code: String? = null
 
     interface OnDataReadListener {
@@ -36,7 +36,7 @@ class CodeFileReaderTask( private val progressBar: ProgressBar?, private val con
         }
     }
 
-    override fun onPostExecute(aVoid: Void) {
+    override fun onPostExecute(aVoid: Void?) {
         super.onPostExecute(aVoid)
         if (progressBar != null) {
             progressBar.visibility = View.GONE

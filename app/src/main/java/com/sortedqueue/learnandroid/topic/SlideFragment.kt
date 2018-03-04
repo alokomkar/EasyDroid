@@ -29,8 +29,8 @@ import com.sortedqueue.learnandroid.dashboard.DashboardNavigationListener
 import com.sortedqueue.learnandroid.utils.ImageUtils
 
 import java.util.Locale
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_IMAGE
-import com.sortedqueue.learnandroid.constants.LearnDroidConstants.CONTENT_TYPE_TEXT
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_IMAGE
+import com.sortedqueue.learnandroid.constants.LearnDroidConstants.Companion.CONTENT_TYPE_TEXT
 import kotlinx.android.synthetic.main.fragment_slide.*
 
 /**
@@ -48,9 +48,23 @@ class SlideFragment : Fragment() {
     private var presentationSlideListener: PresentationSlideListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_slide, container, false)
-        questionTextView.setMovementMethod(ScrollingMovementMethod())
-        questionTextView.setText(dashboardNavigationListener!!.currentTopic)
+        return inflater.inflate(R.layout.fragment_slide, container, false)
+    }
+
+    /**
+     * Called immediately after [.onCreateView]
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     * @param view The View returned by [.onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        questionTextView.movementMethod = ScrollingMovementMethod()
+        questionTextView.text = dashboardNavigationListener!!.getCurrentTopic()
         contentTextView.setVisibility(View.GONE)
         slideImageView.setVisibility(View.GONE)
 
@@ -96,8 +110,6 @@ class SlideFragment : Fragment() {
                 presentationSlideListener!!.hideNextLayout()
             }
         })
-
-        return fragmentView
     }
 
     fun setPresentationSlideListener(presentationSlideListener: PresentationSlideListener) {

@@ -19,7 +19,7 @@ import java.util.ArrayList
  */
 @SuppressLint("StaticFieldLeak")
 class SlideContentReaderTask(private val context: Context, private val fileId: String, //Interface to communicate back the response to UI
-                             private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void>() {
+                             private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void?>() {
     private var contentText: String? = null
     private val contentArrayList: ArrayList<SlideContent>
 
@@ -48,7 +48,7 @@ class SlideContentReaderTask(private val context: Context, private val fileId: S
         progressDialog!!.show()
     }
 
-    override fun onPostExecute(aVoid: Void) {
+    override fun onPostExecute(aVoid: Void?) {
         super.onPostExecute(aVoid)
         if (progressDialog != null) {
             progressDialog!!.dismiss()
