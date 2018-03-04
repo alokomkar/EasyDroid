@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         if (topicFragment == null) {
             topicFragment = TopicFragment()
         }
-        mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left)
+        mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
         mFragmentTransaction!!.replace(R.id.container, topicFragment, TopicFragment::class.java!!.getSimpleName())
         mFragmentTransaction!!.commit()
     }
@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
             presentationFragment = new PresentationFragment();
         }*/
         presentationFragment = PresentationFragment()
-        mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left)
+        mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
         mFragmentTransaction!!.replace(R.id.container, presentationFragment, PresentationFragment::class.java.getSimpleName())
         mFragmentTransaction!!.commit()
     }

@@ -2,12 +2,11 @@ package com.sortedqueue.learnandroid.topic
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
