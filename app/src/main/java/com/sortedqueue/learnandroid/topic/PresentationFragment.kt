@@ -40,10 +40,7 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
     private var currentPosition: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_presentation, container, false)
-
-
-        return fragmentView
+        return inflater.inflate(R.layout.fragment_presentation, container, false)
     }
 
     /**
@@ -60,14 +57,14 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as AppCompatActivity?
         activity!!.setSupportActionBar(toolbar)
-        toolbar.setTitle(dashboardNavigationListener!!.getCurrentMainTitle())
+        toolbar.title = dashboardNavigationListener!!.getCurrentMainTitle()
 
         val fileId = dashboardNavigationListener!!.getCurrentTopic().toLowerCase().replace("-".toRegex(), "").replace("  ".toRegex(), " ").replace(" ".toRegex(), "_")
         Log.d(TAG, "File Id : " + fileId)
         SlideContentReaderTask(context!!, fileId, this).execute()
 
 
-        doneFAB.setOnClickListener(View.OnClickListener { scrollForward() })
+        doneFAB.setOnClickListener{ scrollForward() }
     }
 
     private fun scrollForward() {
@@ -188,7 +185,7 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
 
     fun navigateBack() {
         if (slideViewPager != null) {
-            slideViewPager.setCurrentItem(slideViewPager.getCurrentItem() - 1)
+            slideViewPager.currentItem = slideViewPager.getCurrentItem() - 1
         }
     }
 }
