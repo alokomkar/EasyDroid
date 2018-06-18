@@ -41,9 +41,7 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_dashboard, container, false)
-
-        return fragmentView
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     /**
@@ -78,23 +76,23 @@ class DashboardFragment : Fragment() {
 
     private fun setupRecyclerViews() {
 
-        androidOSRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        androidManifestRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        activityRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        fragmentRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        intentRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        asyncTaskRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
-        viewsRecyclerView.setLayoutManager(LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false))
+        androidOSRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        androidManifestRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        activityRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        fragmentRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        intentRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        asyncTaskRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        viewsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         var typeIndex = 1
         val resources = resources
-        androidOSRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_os_array), R.color.md_amber_800, adapterClickListener))
-        androidManifestRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener))
-        viewsRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.views_array), R.color.md_purple_500, adapterClickListener))
-        activityRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener))
-        fragmentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener))
-        intentRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener))
-        asyncTaskRecyclerView.setAdapter(TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener))
+        androidOSRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_os_array), R.color.md_amber_800, adapterClickListener)
+        androidManifestRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.android_manifest_array), R.color.md_cyan_500, adapterClickListener)
+        viewsRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.views_array), R.color.md_purple_500, adapterClickListener)
+        activityRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener)
+        fragmentRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener)
+        intentRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener)
+        asyncTaskRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener)
 
     }
 

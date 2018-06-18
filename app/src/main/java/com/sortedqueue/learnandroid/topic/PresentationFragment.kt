@@ -55,23 +55,28 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val activity = activity as AppCompatActivity?
         activity!!.setSupportActionBar(toolbar)
         toolbar.title = dashboardNavigationListener!!.getCurrentMainTitle()
 
-        val fileId = dashboardNavigationListener!!.getCurrentTopic().toLowerCase().replace("-".toRegex(), "").replace("  ".toRegex(), " ").replace(" ".toRegex(), "_")
+        val fileId = dashboardNavigationListener!!.getCurrentTopic()
+                .toLowerCase()
+                .replace("-".toRegex(), "")
+                .replace(" {2}".toRegex(), " ")
+                .replace(" ".toRegex(), "_")
+
         Log.d(TAG, "File Id : " + fileId)
         SlideContentReaderTask(context!!, fileId, this).execute()
-
 
         doneFAB.setOnClickListener{ scrollForward() }
     }
 
     private fun scrollForward() {
-        if (slideProgressBar.getProgress() == slideProgressBar.getMax()) {
+        if (slideProgressBar.progress == slideProgressBar.max) {
             dashboardNavigationListener!!.loadTopicFragment()
         } else {
-            slideViewPager.setCurrentItem(slideViewPager.getCurrentItem() + 1)
+            slideViewPager.currentItem = slideViewPager.getCurrentItem() + 1
         }
     }
 
@@ -97,7 +102,7 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
             }
 
             override fun onPageSelected(position: Int) {
-                slideProgressBar.setProgress(position + 1)
+                slideProgressBar.progress = position + 1
                 toggleFabDrawable(slideProgressBar.getProgress())
                 changeScrollBehavior(position)
             }
@@ -106,8 +111,8 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
 
             }
         })
-        slideProgressBar.setMax(slideViewPager.getAdapter()!!.getCount())
-        slideProgressBar.setProgress(1)
+        slideProgressBar.max = slideViewPager.getAdapter()!!.getCount()
+        slideProgressBar.progress = 1
         changeScrollBehavior(0)
     }
 
@@ -120,7 +125,7 @@ class PresentationFragment : Fragment(), SlideContentReaderTask.OnDataReadListen
             if (position - 1 != -1) {
                 if (slideFragmentPagerAdapter!!.getItem(position - 1) is SlideFragment) {
                     val slideFragment = slideFragmentPagerAdapter!!.getItem(position - 1) as SlideFragment
-                    slideFragment?.stopAudioPlayback()
+                    slideFragment.stopAudioPlayback()
                 }
             }
             if (fragment is SlideFragment) {

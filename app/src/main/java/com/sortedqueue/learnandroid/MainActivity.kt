@@ -1,12 +1,15 @@
 package com.sortedqueue.learnandroid
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.view.*
+import android.widget.ImageView
 
 import com.sortedqueue.learnandroid.asynctasks.CodeFileReaderTask
 import com.sortedqueue.learnandroid.dashboard.DashboardFragment
@@ -16,6 +19,16 @@ import com.sortedqueue.learnandroid.topic.TopicFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import android.content.Intent
+import android.graphics.Color
+import android.widget.EditText
+import com.sortedqueue.learnandroid.R.string.intent
+import android.widget.Toast
+import android.text.Spannable
+import android.text.Selection.getSelectionEnd
+import android.text.Selection.getSelectionStart
+import android.text.style.BackgroundColorSpan
+
 
 @SuppressLint("CommitTransaction", "SetTextI18n")
 class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener, DashboardNavigationListener, View.OnClickListener {
@@ -43,13 +56,104 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         navigationTextView.setOnClickListener(this)
         cancelImageView.setOnClickListener(this)
         navigateTopicLayout.visibility = View.GONE
+        showSplashDialog()
         Handler().postDelayed({
-            splashImageView.visibility = View.GONE
-            splashTextView.visibility = View.GONE
-            loadDashboardFragment()
+            dialog.dismiss()
         }, 2500)
+        splashImageView.visibility = View.GONE
+        splashTextView.visibility = View.GONE
+        loadDashboardFragment()
+        handleSharedText()
         //codeView = (CodeView) findViewById(R.id.codeView);
         //new FileReaderTask(MainActivity.this, "chapter_1", this).execute();
+
+    }
+
+    private fun handleSharedText() {
+        // Get intent, action and MIME type
+        val intent = intent
+        val action = intent.action
+        val type = intent.type
+        if (Intent.ACTION_SEND == action && type != null) {
+            if ("text/plain" == type) {
+                val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
+                showSharedNotesDialog( sharedText )
+            }
+        }
+    }
+
+    private lateinit var sharedDialog : Dialog
+    private fun showSharedNotesDialog( sharedText : String ) {
+        sharedDialog = Dialog(this, android.R.style.Theme_Translucent_NoTitleBar)
+        sharedDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        sharedDialog.setContentView(R.layout.dialog_shared_text)
+
+        val window = sharedDialog.window
+        val wlp = window.attributes
+
+        wlp.gravity = Gravity.CENTER
+        wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_BLUR_BEHIND.inv()
+        window.attributes = wlp
+        sharedDialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        sharedDialog.show()
+
+        val sharedEditText : EditText = sharedDialog.findViewById<EditText>(R.id.sharedEditText)
+        sharedEditText.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onActionItemClicked(p0: ActionMode?, item: MenuItem?): Boolean {
+                val id = item!!.itemId
+                if (id == R.id.item_code) {
+                    val start = sharedEditText.selectionStart
+                    val end = sharedEditText.selectionEnd
+                    val wordToSpan = sharedEditText.text as Spannable
+                    wordToSpan.setSpan(BackgroundColorSpan(Color.BLUE),
+                            start,
+                            end,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    Toast.makeText(this@MainActivity, "Marked as code", Toast.LENGTH_SHORT).show()
+                    return true
+                }
+                return false
+            }
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                mode!!.title = "Mark as : "
+                mode.menuInflater.inflate(R.menu.menu_code, menu);
+                return true
+            }
+
+            override fun onPrepareActionMode(p0: ActionMode?, menu: Menu?): Boolean {
+                menu!!.removeItem(android.R.id.selectAll);
+                // Remove the "cut" option
+                menu.removeItem(android.R.id.cut);
+                // Remove the "copy all" option
+                menu.removeItem(android.R.id.copy);
+                return true
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+
+            }
+
+        }
+        sharedEditText.setText( sharedText )
+
+    }
+
+    private lateinit var dialog: Dialog
+
+    private fun showSplashDialog() {
+        dialog = Dialog(this, android.R.style.Theme_Translucent_NoTitleBar)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_splash)
+
+        val window = dialog.window
+        val wlp = window.attributes
+
+        wlp.gravity = Gravity.CENTER
+        wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_BLUR_BEHIND.inv()
+        window.attributes = wlp
+        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog.show()
 
     }
 
@@ -111,8 +215,9 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
             dashboardFragment = DashboardFragment()
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
-        mFragmentTransaction!!.replace(R.id.container, dashboardFragment, DashboardFragment::class.java.simpleName)
-        mFragmentTransaction!!.commitAllowingStateLoss()
+        mFragmentTransaction!!.add(R.id.container, dashboardFragment, DashboardFragment::class.java.simpleName)
+        mFragmentTransaction!!.addToBackStack(null)
+        mFragmentTransaction!!.commit()
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -121,8 +226,10 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
 
 
     override fun loadTopicFragment() {
+        navigateTopicLayout.visibility = View.GONE
+        loadDashboardFragment()
         //onProgressStatsUpdate(50);
-        currentFragmentTAG = "Topics"
+        /*currentFragmentTAG = "Topics"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         topicFragment = supportFragmentManager.findFragmentByTag(TopicFragment::class.java.simpleName) as TopicFragment?
         if (topicFragment == null) {
@@ -130,7 +237,7 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
         mFragmentTransaction!!.replace(R.id.container, topicFragment, TopicFragment::class.java.simpleName)
-        mFragmentTransaction!!.commit()
+        mFragmentTransaction!!.commit()*/
     }
 
     override fun loadPresentationFragment(mainTitle: String, topic: String, topicIndex: Int, topicArray: Array<String>) {
@@ -152,7 +259,8 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         }*/
         presentationFragment = PresentationFragment()
         mFragmentTransaction!!.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-        mFragmentTransaction!!.replace(R.id.container, presentationFragment, PresentationFragment::class.java.simpleName)
+        mFragmentTransaction!!.add(R.id.container, presentationFragment, PresentationFragment::class.java.simpleName)
+        mFragmentTransaction!!.addToBackStack(null)
         mFragmentTransaction!!.commit()
     }
 
@@ -187,10 +295,16 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
 
     override fun onBackPressed() {
         navigateTopicLayout.visibility = View.GONE
-        when (currentFragmentTAG) {
+        /*when (currentFragmentTAG) {
             "Dashboard" -> super.onBackPressed()
             "Topics" -> loadPresentationFragment(currentMainTitle!!, currentTopic!!, topicIndex, topicArray!!)
             "Presentation" -> loadDashboardFragment()
+        }*/
+        if( supportFragmentManager.backStackEntryCount > 1 ) {
+            supportFragmentManager.popBackStack()
+        }
+        else {
+            finish()
         }
     }
 
