@@ -7,7 +7,14 @@
         android:icon="@android:drawable/stat_notify_more"
         app:showAsAction="always"
         android:title="@string/mark_as_code"
-        android:titleCondensed="Delete">
+        android:titleCondensed="Code">
+    </item>
+
+    <item
+        android:id="@+id/item_header"
+        app:showAsAction="always"
+        android:title="@string/mark_as_head"
+        android:titleCondensed="@string/mark_as_head">
     </item>
 
 </menu>

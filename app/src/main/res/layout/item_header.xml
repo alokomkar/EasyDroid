@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_8"
+        android:id="@+id/headerTextView"
+        style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
+        android:textColor="@color/md_grey_800"
+        android:text="@string/app_name"/>
+
+</LinearLayout>

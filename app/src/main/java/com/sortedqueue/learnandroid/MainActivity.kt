@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import android.content.Intent
 import android.graphics.Color
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.widget.EditText
 import com.sortedqueue.learnandroid.R.string.intent
 import android.widget.Toast
@@ -28,6 +30,7 @@ import android.text.Spannable
 import android.text.Selection.getSelectionEnd
 import android.text.Selection.getSelectionStart
 import android.text.style.BackgroundColorSpan
+import com.sortedqueue.learnandroid.topic.share.ContentRvAdapter
 
 
 @SuppressLint("CommitTransaction", "SetTextI18n")
@@ -96,47 +99,11 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
         window.attributes = wlp
         sharedDialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         sharedDialog.show()
-
-        val sharedEditText : EditText = sharedDialog.findViewById<EditText>(R.id.sharedEditText)
-        sharedEditText.customSelectionActionModeCallback = object : ActionMode.Callback {
-            override fun onActionItemClicked(p0: ActionMode?, item: MenuItem?): Boolean {
-                val id = item!!.itemId
-                if (id == R.id.item_code) {
-                    val start = sharedEditText.selectionStart
-                    val end = sharedEditText.selectionEnd
-                    val wordToSpan = sharedEditText.text as Spannable
-                    wordToSpan.setSpan(BackgroundColorSpan(Color.BLUE),
-                            start,
-                            end,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    Toast.makeText(this@MainActivity, "Marked as code", Toast.LENGTH_SHORT).show()
-                    return true
-                }
-                return false
-            }
-
-            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                mode!!.title = "Mark as : "
-                mode.menuInflater.inflate(R.menu.menu_code, menu);
-                return true
-            }
-
-            override fun onPrepareActionMode(p0: ActionMode?, menu: Menu?): Boolean {
-                menu!!.removeItem(android.R.id.selectAll);
-                // Remove the "cut" option
-                menu.removeItem(android.R.id.cut);
-                // Remove the "copy all" option
-                menu.removeItem(android.R.id.copy);
-                return true
-            }
-
-            override fun onDestroyActionMode(p0: ActionMode?) {
-
-            }
-
-        }
-        sharedEditText.setText( sharedText )
-
+        val rvContent : RecyclerView = sharedDialog.findViewById(R.id.rvContent)
+        rvContent.layoutManager = LinearLayoutManager( this@MainActivity )
+        val contentList = ArrayList<String>()
+        contentList.add(sharedText)
+        rvContent.adapter = ContentRvAdapter(contentList)
     }
 
     private lateinit var dialog: Dialog

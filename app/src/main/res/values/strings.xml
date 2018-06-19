@@ -13,6 +13,7 @@
     <string name="navigate_back">Back</string>
     <string name="views_view_groups">Views, View Groups and Layout Managers</string>
     <string name="mark_as_code">Mark as code</string>
+    <string name="mark_as_head">Header</string>
     <string-array name="android_os_array">
         <item>Android OS</item>
         <item>Android Versions</item>
