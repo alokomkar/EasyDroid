@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity(), CodeFileReaderTask.OnDataReadListener,
 
     override fun loadTopicFragment() {
         navigateTopicLayout.visibility = View.GONE
-        loadDashboardFragment()
+        onBackPressed()
         //onProgressStatsUpdate(50);
         /*currentFragmentTAG = "Topics"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
