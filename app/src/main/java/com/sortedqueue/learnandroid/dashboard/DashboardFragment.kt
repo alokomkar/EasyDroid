@@ -32,6 +32,7 @@ class DashboardFragment : Fragment() {
                 LearnDroidConstants.INDEX_MANIFEST -> mainTitle = "Manifest"
                 LearnDroidConstants.INDEX_INTENT -> mainTitle = "Intents"
                 LearnDroidConstants.INDEX_VIEW -> mainTitle = "Views, ViewGroups, LayoutManagers"
+                LearnDroidConstants.INDEX_BACKGROUND -> mainTitle = "Background"
             }
 
             if (dashboardNavigationListener != null)
@@ -83,6 +84,7 @@ class DashboardFragment : Fragment() {
         intentRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         asyncTaskRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        backgroundRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         var typeIndex = 1
         val resources = resources
@@ -92,7 +94,8 @@ class DashboardFragment : Fragment() {
         activityRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.activity_array), R.color.md_brown_700, adapterClickListener)
         fragmentRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.fragment_array), R.color.md_blue_grey_700, adapterClickListener)
         intentRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.intent_array), R.color.md_light_green_900, adapterClickListener)
-        asyncTaskRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener)
+        asyncTaskRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex++, resources.getStringArray(R.array.async_task_array), R.color.md_cyan_900, adapterClickListener)
+        backgroundRecyclerView.adapter = TopicsRecyclerViewAdapter(context!!, typeIndex, resources.getStringArray(R.array.background_array), R.color.md_deep_orange_900, adapterClickListener)
 
     }
 

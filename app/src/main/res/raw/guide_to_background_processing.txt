@@ -1,0 +1,58 @@
+<text>
+Every Android app has a main thread which is in charge of handling UI (including measuring and drawing views), coordinating user interactions, and receiving lifecycle events. If there is too much work happening on this thread, the app appears to hang or slow down, leading to an undesirable user experience. Any long-running computations and operations such as decoding a bitmap, accessing the disk, or performing network requests should be done on a separate background thread. In general, anything that takes more than a few milliseconds should be delegated to a background thread.
+
+When considering doing work off the main thread, consider three factors:
+
+<b>Can the work be deferred, or does it need to happen exactly when scheduled?</b>
+For example, if you need to fetch some data from the network in response to the user clicking a button, that work must be done right away. However, if you want to upload your logs to the server, that work can be deferred without affecting your app’s performance or user expectations.
+
+<b>Once the work starts executing, should the OS try to keep the app process alive?</b>
+For example, decoding and displaying a bitmap is something that only needs to happen while the app is in the foreground and the process is alive. However, a music player needs to continue playing music even when the app is in the background and not actively being used.
+
+<b>Does the work start in response to system triggers?</b>
+These triggers could be things like network status, battery state, storage levels, and so on. For example, you might want to wait to communicate with your server until you are out of airplane mode. In this case, if the app process is dead, you might want it to be recreated once the device is online again so that you can perform your work.</text>
+</text>
+<text>
+<b>ThreadPools</b>
+For work that should only be done when your app is in the foreground, use ThreadPools.
+
+ThreadPools provide a group of background threads that accept and enqueue submitted work.
+
+If you need to monitor system triggers during this time, use dynamically-registered <b>broadcast receivers</b> to monitor OS state and triggers.
+
+<i>Note: Group your ThreadPools (for network, disk I/O, and computation). These types of work are generally independent and shouldn’t block each other.</i>
+</text>
+<text>
+<b>Foreground services</b>
+For work that must execute to completion, if you need the work to execute immediately, use a foreground service.
+
+Using a foreground service tells the system that the app is doing something important and they shouldn’t be killed.
+
+Foreground services are visible to users via a <i>non-dismissible notification</i> in the notification tray.
+</text>
+<text>
+<b>WorkManager</b>
+For work that must execute to completion and is deferrable, use WorkManager.
+<ul>
+<li> WorkManager is an Android library that gracefully runs deferrable background work when the work's triggers (like appropriate network state and battery conditions) are satisfied.</li>
+
+<li> WorkManager uses the framework <b>JobScheduler</b> whenever possible, to help optimize battery life and batch jobs. On devices below Android 6.0 (API level 23),</li>
+
+<li> WorkManager attempts to use <b>Firebase JobDispatcher</b> if it’s already an included dependency of your app; otherwise,</li>
+
+<li> WorkManager falls back to a custom <b>AlarmManager</b> implementation to gracefully handle your background work.</li>
+</ul>
+</text>
+<text>
+<b>Restrictions on background processing</b>
+In order to maximize battery and enforce good app behavior, Android restricts background work when the app (or a foreground service notification) isn’t visible to the user.
+<ul>
+<li> <b>Android 6.0 (API level 23)</b> introduced <b>Doze mode and app standby</b>. Doze mode restricts app behavior when the screen is off and the device is stationary. App standby puts unused applications into a special state that restricts their network access, jobs, and syncs.</li>
+
+<li> <b>Android 7.0 (API level 24)</b> limited implicit broadcasts and introduced Doze-on-the-Go.</li>
+
+<li> <b>Android 8.0 (API level 26)</b> further limited background behavior, such as getting location in the background and releasing cached wakelocks.</li>
+
+<li> <b>WorkManager</b> is designed to give the best possible behavior under these restrictions.</li>
+<ul>
+</text>

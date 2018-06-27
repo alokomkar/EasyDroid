@@ -14,6 +14,7 @@ interface LearnDroidConstants {
         val INDEX_FRAGMENT = 5
         val INDEX_INTENT = 6
         val INDEX_ASYNC_TASK = 7
+        val INDEX_BACKGROUND = 8
 
         val CONTENT_TYPE_IMAGE = 1
         val CONTENT_TYPE_TEXT = 2

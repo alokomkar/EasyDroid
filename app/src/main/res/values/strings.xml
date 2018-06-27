@@ -14,6 +14,7 @@
     <string name="views_view_groups">Views, View Groups and Layout Managers</string>
     <string name="mark_as_code">Mark as code</string>
     <string name="mark_as_head">Header</string>
+    <string name="background">Background</string>
     <string-array name="android_os_array">
         <item>Android OS</item>
         <item>Android Versions</item>
@@ -70,6 +71,16 @@
         <item>Relative layout</item>
         <item>Grid Layout</item>
         <item>ScrollView</item>
+    </string-array>
+
+    <string-array name="background_array">
+        <item>Guide to background processing</item>
+        <item>Sending operations to multiple threads</item>
+        <item>Schedule jobs intelligently</item>
+        <item>Services</item>
+        <item>Background optimizations</item>
+        <item>Broadcasts overview</item>
+        <item>Manage device awake state</item>
     </string-array>
 
     <!--https://developer.android.com/guide/components/services.html-->
