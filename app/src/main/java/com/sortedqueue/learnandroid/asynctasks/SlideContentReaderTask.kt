@@ -21,17 +21,13 @@ import java.util.ArrayList
 class SlideContentReaderTask(private val context: Context, private val fileId: String, //Interface to communicate back the response to UI
                              private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void?>() {
     private var contentText: String? = null
-    private val contentArrayList: ArrayList<SlideContent>
+    private val contentArrayList: ArrayList<SlideContent> = ArrayList()
 
     //To display progress Dialog
     private var progressDialog: ProgressDialog? = null
 
     interface OnDataReadListener {
         fun onDataReadComplete(contentArrayList: ArrayList<SlideContent>)
-    }
-
-    init {
-        this.contentArrayList = ArrayList()
     }
 
     override fun doInBackground(vararg voids: Void): Void? {
@@ -100,10 +96,10 @@ class SlideContentReaderTask(private val context: Context, private val fileId: S
 
             }
             if (contentArrayList.size == 0) {
-                if (contentText!!.trim { it <= ' ' }.length > 0) {
+                if (contentText!!.trim { it <= ' ' }.isNotEmpty()) {
                     contentArrayList.add(SlideContent(contentText, LearnDroidConstants.CONTENT_TYPE_TEXT))
                 }
-            } else if (contentText!!.trim { it <= ' ' }.length > 0) {
+            } else if (contentText!!.trim { it <= ' ' }.isNotEmpty()) {
                 contentArrayList.add(SlideContent(contentText, LearnDroidConstants.CONTENT_TYPE_TEXT))
             }
         } catch (e: IOException) {
